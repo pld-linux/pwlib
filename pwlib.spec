@@ -1,15 +1,11 @@
-#
-# Conditional build:
-%bcond_with	dc	# with libdc1394 digital camera interface
-#			  (instead of libavc1394)
-#
+
 Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.6.4
 %define	fver	%(echo %{version} | tr . _)-1
-Release:	2
+Release:	3
 License:	MPL 1.0
 Group:		Libraries
 #Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
@@ -22,14 +18,14 @@ Patch2:		%{name}-bison-pure.patch
 Patch3:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
+BuildRequires:	alsa-lib-devel >= 1.0.1
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison >= 1.875
 BuildRequires:	expat-devel
 BuildRequires:	flex
-%{!?with_dc:BuildRequires:	libavc1394-devel}
-%{?with_dc:BuildRequires:	libdc1394-devel}
-%{!?with_dc:BuildRequires:	libdv-devel}
+BuildRequires:	libavc1394-devel
+BuildRequires:	libdv-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel >= 0.9.7d
@@ -63,9 +59,8 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel
 Requires:	expat-devel
-%{!?with_dc:Requires:	libavc1394-devel}
-%{?with_dc:Requires:	libdc1394-devel}
-%{!?with_dc:Requires:	libdv-devel}
+Requires:	libavc1394-devel
+Requires:	libdv-devel
 Requires:	libstdc++-devel
 Requires:	openldap-devel
 Requires:	openssl-devel >= 0.9.7c
@@ -93,6 +88,61 @@ pwlib static libraries.
 %description static -l pl
 Biblioteki statyczne pwlib.
 
+%package sound-alsa
+Summary:	Alsa audio plugin
+Summary(pl):	Wtyczka d¼wiêkowa Alsa
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	alsa-lib >= 1.0.1
+Provides:	pwlib-sound
+
+%description sound-alsa
+Alsa audio plugin.
+
+%description sound-alsa -l pl
+Wtyczka d¼wiêkowa Alsa.
+
+%package sound-oss
+Summary:	OSS audio plugin
+Summary(pl):	Wtyczka d¼wiêkowa OSS
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Provides:	pwlib-sound
+
+%description sound-oss
+OSS audio plugin.
+
+%description sound-oss -l pl
+Wtyczka d¼wiêkowa OSS.
+
+%package video-v4l
+Summary:	v4l video plugin
+Summary(pl):	Wtyczka wideo v4l
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description video-v4l
+v4l video plugin.
+
+%description video-v4l -l pl
+Wtyczka wideo v4l.
+
+%package video-avc
+Summary:	AVC 1394 video plugin
+Summary(pl):	Wtyczka wideo AVC 1394
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	libavc1394
+Requires:	libdv
+Requires:	libraw1394
+
+%description video-avc
+AVC 1394 video plugin.
+
+%description video-avc -l pl
+Wtyczka wideo AVC 1394.
+
+
 %prep
 %setup -qn %{name}
 %patch0 -p1
@@ -106,8 +156,7 @@ ln -sf make bin
 cp -f /usr/share/automake/config.* .
 %{__autoconf}
 %configure \
-	%{!?with_dc:--enable-firewireavc} \
-	%{?with_dc:--enable-firewiredc}
+	--enable-plugins
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	PWLIBDIR="`pwd`" \
@@ -132,6 +181,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.txt
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%dir %{_libdir}/pwlib/device
 
 %files devel
 %defattr(644,root,root,755)
@@ -146,3 +196,19 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/lib*.a
+
+%files sound-alsa
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/device/sound/alsa.so
+
+%files sound-oss
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/device/sound/oss.so
+
+%files video-v4l
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/v4l.so
+
+%files video-avc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/avc.so
