@@ -7,9 +7,7 @@ Version:	1.6.5
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
-#Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
-#Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src.tar.gz
-Source0:	%{name}-v%{fver}-src.tar.gz
+Source0:	http://unc.dl.sourceforge.net/sourceforge/openh323/%{name}-v%{fver}-src.tar.gz
 # Source0-md5:	acfbcfb87ca9a92ac54c0fb01c55c4b3
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
