@@ -9,7 +9,7 @@ Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.6.4
 %define	fver	%(echo %{version} | tr . _)-1
-Release:	1
+Release:	2
 License:	MPL 1.0
 Group:		Libraries
 #Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
@@ -60,7 +60,7 @@ Summary:	Portable Windows Libary development files
 Summary(pl):	Pliki dla programistów u¿ywaj±cych pwlib
 Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel
 Requires:	expat-devel
 %{!?with_dc:Requires:	libavc1394-devel}
@@ -85,7 +85,7 @@ biblioteca pwlib.
 Summary:	Portable Windows Libary static libraries
 Summary(pl):	Biblioteki statyczne pwlib
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 pwlib static libraries.
