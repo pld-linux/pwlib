@@ -29,7 +29,7 @@ BuildRequires:	flex
 %{!?_with_dc:BuildRequires:	libdv-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	openldap-devel
-BuildRequires:	openssl-devel >= 0.9.7
+BuildRequires:	openssl-devel >= 0.9.7c
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -65,7 +65,7 @@ Requires:	expat-devel
 %{!?_with_dc:Requires:	libdv-devel}
 Requires:	libstdc++-devel
 Requires:	openldap-devel
-Requires:	openssl-devel >= 0.9.7
+Requires:	openssl-devel >= 0.9.7c
 
 %description devel
 Header files and libraries for developing applications that use pwlib.
