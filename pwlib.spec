@@ -1,22 +1,39 @@
+#
+# Conditional build:
+# _with_dc		- with libdc1394 digital camera interface
+#			  (instead of libavc1394)
+#
+
+%define _snap 20040124
+%define _snapbuild 01
+
+
 Summary:	Portable Windows Libary
-Summary(pl):	Przeno¶na biblioteka okienkowa
+Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
+Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.2.13
-Release:	1
-License:	GPL
+Version:	1.6.2
+Release:	0.%{_snap}.2
+License:	MPL 1.0
 Group:		Libraries
-Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
-Patch0:		%{name}-mak_files.patch
-Patch1:		%{name}-libname.patch
-Patch2:		%{name}-asnparser.patch
-Patch3:		%{name}-116.patch
-Patch4:		%{name}-EOF.patch
+Source0:	http://snapshots.seconix.com/cvs/archive/%{name}-cvs_%{_snap}-%{_snapbuild}.tar.gz
+# Source0-md5:	0a1f1198f662ec1fe620aba5b630716d
+Patch1:		%{name}-mak_files.patch
+Patch2:		%{name}-libname.patch
+Patch3:		%{name}-bison-pure.patch
+Patch4:		%{name}-opt.patch
 URL:		http://www.openh323.org/
-BuildRequires:	bison
+BuildRequires:	SDL-devel
+BuildRequires:	autoconf
+BuildRequires:	bison >= 1.875
 BuildRequires:	expat-devel
+BuildRequires:	flex
+%{!?_with_dc:BuildRequires:	libavc1394-devel}
+%{?_with_dc:BuildRequires:	libdc1394-devel}
+%{!?_with_dc:BuildRequires:	libdv-devel}
 BuildRequires:	libstdc++-devel
-BuildRequires:	openssl-devel >= 0.9.6a
-BuildRequires:	sed
+BuildRequires:	openldap-devel
+BuildRequires:	openssl-devel >= 0.9.7c
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,13 +49,27 @@ tworzenie aplikacji dzia³aj±cych zarówno pod Microsoft Windows jak i
 uniksowych X Window. Mia³a te¿ mieæ port na Macintosha. Ten pakiet nie
 zawiera kodu GUI.
 
+%description -l pt_BR
+PWLib e uma biblioteca de classes razoavelmente grande que teve seu
+inicio ha alguns anos atras como um metodo para produzir aplicacoes
+para serem executadas tanto em Windows quanto em sitemas Unix baseados
+em X-Window. Tambem possui um porte para Macintosh mas nunca foi
+terminado. Esta versao nao contem nenhum codigo para interface.
+
 %package devel
 Summary:	Portable Windows Libary development files
-Summary(pl):	Pliki dla developerów pwlib
+Summary(pl):	Pliki dla programistów u¿ywaj±cych pwlib
+Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
-Requires:	openssl-devel
+Requires:	SDL-devel
 Requires:	expat-devel
+%{!?_with_dc:Requires:	libavc1394-devel}
+%{?_with_dc:Requires:	libdc1394-devel}
+%{!?_with_dc:Requires:	libdv-devel}
+Requires:	libstdc++-devel
+Requires:	openldap-devel
+Requires:	openssl-devel >= 0.9.7c
 
 %description devel
 Header files and libraries for developing applications that use pwlib.
@@ -46,6 +77,10 @@ Header files and libraries for developing applications that use pwlib.
 %description devel -l pl
 Pliki nag³ówkowe i biblioteki konieczne do rozwoju aplikacji
 u¿ywaj±cych pwlib.
+
+%description devel -l pt_BR
+O pacote pwlib-devel inclui as bibliotecas e arquivos de header para a
+biblioteca pwlib.
 
 %package static
 Summary:	Portable Windows Libary static libraries
@@ -61,54 +96,39 @@ Biblioteki statyczne pwlib.
 
 %prep
 %setup -qn %{name}
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 
+ln -sf make bin
+
 %build
-# it still ignores CC and CXX
-CC="%{__cc}"; export CC
-%{?__cxx:CXX="%{__cc}"; export CXX}
+%{__autoconf}
+%configure \
+	%{!?_with_dc:--enable-firewireavc} \
+	%{?_with_dc:--enable-firewiredc} \
+	--enable-plugins
 
-
-PWLIBDIR=`pwd`; export PWLIBDIR
-PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	EXTLIBS="-lstdc++ -lexpat" 
-#	CC="gcc2" CPP="g++2" CPLUS="g++2"
-
-%{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
-#	CC="gcc2" CPP="g++2" CPLUS="g++2"
-	
-%{__make} -C tools/asnparser \
-	%{?debug:debugshared}%{!?debug:optshared} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
-#	CC="gcc2" CPP="g++2" CPLUS="g++2"
+	PWLIBDIR="`pwd`" \
+	PWLIBMAKEDIR="`pwd`/make" \
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib},%{_bindir},%{_datadir}/%{name}}
 
-#using cp as install won't preserve links
-cp -d lib/lib* $RPM_BUILD_ROOT%{_libdir}
-install include/*.h $RPM_BUILD_ROOT%{_includedir}
-install include/ptclib/*.h $RPM_BUILD_ROOT%{_includedir}/ptclib
-install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
-install include/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib
-install include/ptlib/unix/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
-install include/ptlib/unix/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
-install tools/asnparser/obj_linux_*/asnparser $RPM_BUILD_ROOT%{_bindir}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT \
+	PWLIBDIR="`pwd`" \
+	PWLIBMAKEDIR="`pwd`/make"
 
-cd make
-for l in *.mak ; do
-	sed -e 's#@prefix@#%{_prefix}#' \
-	    -e 's#@makdir@#%{_datadir}/pwlib#' \
-		< $l > $RPM_BUILD_ROOT%{_datadir}/%{name}/$l
-done
+perl -pi -e 's,\@makdir\@,%{_datadir}/%{name}/make,' $RPM_BUILD_ROOT%{_datadir}/%{name}/make/unix.mak
+perl -pi -e 's,\@prefix\@,%{_prefix},' $RPM_BUILD_ROOT%{_datadir}/%{name}/make/unix.mak
+
+ln -sf libpt.so.%{version} $RPM_BUILD_ROOT%{_prefix}/lib/libpt.so
+install lib/libpt.a $RPM_BUILD_ROOT%{_prefix}/lib/libpt.a
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -119,15 +139,19 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.txt
-%{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/pwlib/
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/*
-%attr(755,root,root) %{_libdir}/*.so
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/lib*.so
+%{_includedir}/ptclib
+%{_includedir}/ptlib
+%{_includedir}/*.h
 %{_datadir}/%{name}
+#%{_mandir}/man1/*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/lib*.a
