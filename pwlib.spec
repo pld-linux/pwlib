@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _with_dc		- with libdc1394 digital camera interface
+%bcond_with	dc	# with libdc1394 digital camera interface
 #			  (instead of libavc1394)
 #
 Summary:	Portable Windows Libary
@@ -21,12 +21,13 @@ Patch4:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	bison >= 1.875
 BuildRequires:	expat-devel
 BuildRequires:	flex
-%{!?_with_dc:BuildRequires:	libavc1394-devel}
-%{?_with_dc:BuildRequires:	libdc1394-devel}
-%{!?_with_dc:BuildRequires:	libdv-devel}
+%{!?with_dc:BuildRequires:	libavc1394-devel}
+%{?with_dc:BuildRequires:	libdc1394-devel}
+%{!?with_dc:BuildRequires:	libdv-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel >= 0.9.7c
@@ -57,12 +58,12 @@ Summary:	Portable Windows Libary development files
 Summary(pl):	Pliki dla programistów u¿ywaj±cych pwlib
 Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel
 Requires:	expat-devel
-%{!?_with_dc:Requires:	libavc1394-devel}
-%{?_with_dc:Requires:	libdc1394-devel}
-%{!?_with_dc:Requires:	libdv-devel}
+%{!?with_dc:Requires:	libavc1394-devel}
+%{?with_dc:Requires:	libdc1394-devel}
+%{!?with_dc:Requires:	libdv-devel}
 Requires:	libstdc++-devel
 Requires:	openldap-devel
 Requires:	openssl-devel >= 0.9.7c
@@ -82,7 +83,7 @@ biblioteca pwlib.
 Summary:	Portable Windows Libary static libraries
 Summary(pl):	Biblioteki statyczne pwlib
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 pwlib static libraries.
@@ -101,10 +102,11 @@ Biblioteki statyczne pwlib.
 ln -sf make bin
 
 %build
+cp -f /usr/share/automake/config.* .
 %{__autoconf}
 %configure \
-	%{!?_with_dc:--enable-firewireavc} \
-	%{?_with_dc:--enable-firewiredc}
+	%{!?with_dc:--enable-firewireavc} \
+	%{?with_dc:--enable-firewiredc}
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	PWLIBDIR="`pwd`" \
