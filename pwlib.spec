@@ -1,7 +1,7 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
 Version:	1.2.9
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -16,6 +16,7 @@ URL:		http://www.openh323.org/
 BuildRequires:	bison
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.6a
+BuildRequires:	expat-devel
 BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -72,7 +73,7 @@ PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	EXTLIBS="-lstdc++"
+	EXTLIBS="-lstdc++ -lexpat"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
