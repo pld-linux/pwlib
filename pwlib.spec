@@ -1,13 +1,17 @@
 Summary:	Portable Windows Libary
+Summary(pl):	Przeno¶na biblioteka okienkowa
 Name:		pwlib
 Version:	1.2.9
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
@@ -23,18 +27,28 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
 PWLib is a moderately large class library that has its genesis many
-years ago asa method to product applications to run on both Microsoft
+years ago as a method to product applications to run on both Microsoft
 Windows and Unix X Window systems. It also was to have a Macintosh
 port as well but this never eventuated. Unfortunately this package
 contains no GUI code.
+
+%description -l pl
+PWLib to dosyæ du¿a biblioteka klas, która wywodzi siê ze sposobu na
+tworzenie aplikacji dzia³aj±cych zarówno pod Microsoft Windows jak i
+uniksowych X Window. Mia³a te¿ mieæ port na Macintosha. Ten pakiet nie
+zawiera kodu GUI.
 
 %package devel
 Summary:	Portable Windows Libary development files
 Summary(pl):	Pliki dla developerów pwlib
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 Requires:	openssl-devel
 Requires:	expat-devel
@@ -42,7 +56,7 @@ Requires:	expat-devel
 %description devel
 Header files and libraries for developing applications that use pwlib.
 
-%description -l pl devel
+%description devel -l pl
 Pliki nag³ówkowe i biblioteki konieczne do rozwoju aplikacji
 u¿ywaj±cych pwlib.
 
@@ -51,14 +65,18 @@ Summary:	Portable Windows Libary static libraries
 Summary(pl):	Biblioteki statyczne pwlib
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-devel = %{version}
 
 %description static
 pwlib static libraries.
 
-%description -l pl static
+%description static -l pl
 Biblioteki statyczne pwlib.
 
 %prep
