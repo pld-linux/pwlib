@@ -1,7 +1,7 @@
 Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Name:		pwlib
-Version:	1.2.11
+Version:	1.2.12
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -10,6 +10,7 @@ Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-asnparser.patch
 Patch3:		%{name}-116.patch
+Patch4:		%{name}-EOF.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
 BuildRequires:	expat-devel
@@ -64,6 +65,7 @@ Biblioteki statyczne pwlib.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 # it still ignores CC and CXX
