@@ -60,7 +60,7 @@ Summary:	Portable Windows Libary development files
 Summary(pl):	Pliki dla programistów u¿ywaj±cych pwlib
 Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	SDL-devel
 Requires:	expat-devel
 %{!?with_dc:Requires:	libavc1394-devel}
@@ -85,7 +85,7 @@ biblioteca pwlib.
 Summary:	Portable Windows Libary static libraries
 Summary(pl):	Biblioteki statyczne pwlib
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 pwlib static libraries.
