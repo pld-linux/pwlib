@@ -59,7 +59,7 @@ PWLIBDIR=`pwd`; export PWLIBDIR
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}{/ptclib,/ptlib/unix/ptlib},%{_bindir},%{_datadir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib},%{_bindir},%{_datadir}/%{name}}
 
 #using cp as install won't preserve links
 cp -d lib/lib* $RPM_BUILD_ROOT%{_libdir}
