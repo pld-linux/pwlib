@@ -82,7 +82,7 @@ install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/unix/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
 install include/ptlib/unix/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
-install tools/asnparser/obj_linux_x86_?/asnparser $RPM_BUILD_ROOT%{_bindir}
+install tools/asnparser/obj_linux_*/asnparser $RPM_BUILD_ROOT%{_bindir}
 
 cd make
 for l in *.mak ; do
