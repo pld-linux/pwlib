@@ -7,7 +7,7 @@ Version:	1.6.6
 Release:	2
 License:	MPL 1.0
 Group:		Libraries
-Source0:	http://unc.dl.sourceforge.net/sourceforge/openh323/%{name}-v%{fver}-src.tar.gz
+Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src.tar.gz
 # Source0-md5:	c3ae07b03cd48d57cd9d6ec346182ed4
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
