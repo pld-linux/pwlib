@@ -10,6 +10,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	gcc-c++
 BuildRequires:	libstdc++-devel
 BuildRequires:	bison
+BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -59,14 +60,19 @@ PWLIBDIR=`pwd`; export PWLIBDIR
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}{/ptclib,/ptlib},%{_bindir},%{_datadir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}{/ptclib,/ptlib/unix/ptlib},%{_bindir},%{_datadir}/%{name}}
 install lib/lib* $RPM_BUILD_ROOT%{_libdir}
 install include/*.h $RPM_BUILD_ROOT%{_includedir}
 install include/ptclib/*.h $RPM_BUILD_ROOT%{_includedir}/ptclib
 install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib
+install include/ptlib/unix/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
 install tools/asnparser/obj_linux_x86_r/asnparser $RPM_BUILD_ROOT%{_bindir}
-install make/*.mak $RPM_BUILD_ROOT%{_datadir}/%{name}
+
+cd make
+for l in *.mak ; do
+	sed -e's@\$(PWLIBDIR)/make/@%{_datadir}/pwlib/@' < $l > $RPM_BUILD_ROOT%{_datadir}/%{name}/$l
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
