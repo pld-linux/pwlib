@@ -7,6 +7,7 @@ Release:	1
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
+# Source0-md5:	4abf0cd2fcad799e45d3d733efdca780
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-EOF.patch
