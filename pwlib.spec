@@ -3,10 +3,9 @@ Name:		pwlib
 Version:	1.1pl19
 Release:	1
 License:	GPL
-Group:		X11/Libraries
+Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_min_%{version}.tar.gz
 URL:		http://www.openh323.org/
-BuildRequires:	XFree86-devel
 BuildRequires:	gcc-c++
 BuildRequires:	libstdc++-devel
 BuildRequires:	bison
