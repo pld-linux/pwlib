@@ -1,6 +1,6 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
-Version:	1.2.4
+Version:	1.2.9
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -64,11 +64,16 @@ Biblioteki statyczne pwlib.
 %patch2 -p1
 
 %build
+# it still ignores CC and CXX
+CC="%{__cc}"; export CC
+%{?__cxx:CXX="%{__cc}"; export CXX}
+
 PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
 	EXTLIBS="-lstdc++"
+
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
 
