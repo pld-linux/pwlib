@@ -2,7 +2,7 @@
 # Conditional build:
 # _with_dc		- with libdc1394 digital camera interface
 #			  (instead of libavc1394)
-# 
+#
 Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
