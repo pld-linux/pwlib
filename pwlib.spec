@@ -18,7 +18,7 @@ BuildRequires:	openssl-devel >= 0.9.6a
 BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%description 
+%description
 PWLib is a moderately large class library that has its genesis many
 years ago as a method to product applications to run on both Microsoft
 Windows and Unix X Window systems. It also was to have a Macintosh
