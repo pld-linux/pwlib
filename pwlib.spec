@@ -125,6 +125,9 @@ rm -rf $RPM_BUILD_ROOT
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make"
 
+# FIXME - ugly workaround:
+ln -s libpt.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libpt.so.1
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -135,6 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.txt
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+# FIXME - ugly workaround:
+%attr(755,root,root) %{_libdir}/libpt.so.1
 
 %files devel
 %defattr(644,root,root,755)
