@@ -93,6 +93,26 @@
  
  ###############################################################################
  #
+@@ -298,10 +298,6 @@
+ # any -W overrides won't have any effect
+ STDCCFLAGS += -Wall 
+ 
+-ifdef RPM_OPT_FLAGS
+-STDCCFLAGS	+= $(RPM_OPT_FLAGS)
+-endif
+-
+ ifneq ($(OSTYPE),rtems)
+ ifndef SYSINCDIR
+ SYSINCDIR := /usr/include
+@@ -347,7 +343,7 @@
+ 
+ 
+ STATIC_LIBS	:= libstdc++.a libg++.a libm.a libc.a
+-SYSLIBDIR	:= $(shell $(PWLIBDIR)/make/ptlib-config --libdir)
++SYSLIBDIR	:= $(shell $(PWLIBDIR)/bin/ptlib-config --libdir)
+ #LDFLAGS	+= --no-whole-archive --cref
+ STDCCFLAGS      += -DP_USE_PRAGMA
+ OPTCCFLAGS      += -DP_USE_PRAGMA
 --- pwlib/make/ptbuildopts.mak.in.orig	2003-07-25 00:01:42.000000000 +0200
 +++ pwlib/make/ptbuildopts.mak.in	2003-09-03 08:20:46.772784632 +0200
 @@ -2,7 +2,7 @@

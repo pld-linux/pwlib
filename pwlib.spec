@@ -98,6 +98,8 @@ Biblioteki statyczne pwlib.
 %patch3 -p1
 %patch4 -p1
 
+ln -sf make bin
+
 %build
 %{__autoconf}
 %configure \
