@@ -77,17 +77,17 @@ PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	EXTLIBS="-lstdc++ -lexpat" \
-	CC="gcc2" CPP="g++2" CPLUS="g++2"
+	EXTLIBS="-lstdc++ -lexpat" 
+#	CC="gcc2" CPP="g++2" CPLUS="g++2"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	CC="gcc2" CPP="g++2" CPLUS="g++2"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
+#	CC="gcc2" CPP="g++2" CPLUS="g++2"
 	
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	CC="gcc2" CPP="g++2" CPLUS="g++2"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
+#	CC="gcc2" CPP="g++2" CPLUS="g++2"
 
 %install
 rm -rf $RPM_BUILD_ROOT
