@@ -62,13 +62,13 @@ Biblioteki statyczne pwlib.
 PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
-		OPTCCFLAGS="$RPM_OPT_FLAGS"
+		OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-		OPTCCFLAGS="$RPM_OPT_FLAGS"
+		OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 
 cd tools/asnparser
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
-		OPTCCFLAGS="$RPM_OPT_FLAGS"
+		OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
