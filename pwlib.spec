@@ -32,7 +32,7 @@ BuildRequires:	flex
 %{!?with_dc:BuildRequires:	libdv-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	openldap-devel
-BuildRequires:	openssl-devel >= 0.9.7c
+BuildRequires:	openssl-devel >= 0.9.7d
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
