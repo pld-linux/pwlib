@@ -8,7 +8,7 @@ Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.5.2
-Release:	2
+Release:	3
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
