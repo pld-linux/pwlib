@@ -8,7 +8,7 @@ Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.5.0
-Release:	1
+Release:	2
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
@@ -101,16 +101,19 @@ Biblioteki statyczne pwlib.
 %build
 %{__autoconf}
 %configure \
+	CPPFLAGS="-I/usr/X11R6/include" \
 	%{!?_with_dc:--enable-firewireavc} \
 	%{?_with_dc:--enable-firewiredc}
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
-	PWLIBDIR="`pwd`" PWLIBMAKEDIR="`pwd`/make" \
-        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
+	PWLIBDIR="`pwd`" \
+	PWLIBMAKEDIR="`pwd`/make" \
+        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-	PWLIBDIR="`pwd`" PWLIBMAKEDIR="`pwd`/make" \
-        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
+	PWLIBDIR="`pwd`" \
+	PWLIBMAKEDIR="`pwd`/make" \
+        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include"
 
 %install
 rm -rf $RPM_BUILD_ROOT
