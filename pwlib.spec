@@ -4,7 +4,7 @@ Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.6.5
 %define	fver	%(echo %{version} | tr . _)
-Release:	2.1
+Release:	3
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://unc.dl.sourceforge.net/sourceforge/openh323/%{name}-v%{fver}-src.tar.gz
