@@ -1,7 +1,7 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
 Version:	1.1.36
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -14,7 +14,6 @@ Patch1:		%{name}-libname.patch
 Patch2:		%{name}-asnparser.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
-BuildRequires:	gcc-c++
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.6a
 BuildRequires:	sed
@@ -68,13 +67,14 @@ Biblioteki statyczne pwlib.
 PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
-		OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
+	EXTLIBS="-lstdc++"
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-		OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
 
-cd tools/asnparser
-%{__make} %{?debug:debugshared}%{!?debug:optshared} \
-		OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
+%{__make} -C tools/asnparser \
+	%{?debug:debugshared}%{!?debug:optshared} \
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -106,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.txt
-%{_libdir}/lib*.so.*.*
+%{_libdir}/lib*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
