@@ -3,14 +3,13 @@ Summary(pl):	Przeno¶na biblioteka okienkowa
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.3.8
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-asnparser.patch
-Patch3:		%{name}-116.patch
 Patch4:		%{name}-EOF.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
@@ -78,7 +77,6 @@ Biblioteki statyczne pwlib.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 %patch4 -p1
 
 %build
