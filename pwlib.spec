@@ -101,21 +101,18 @@ Biblioteki statyczne pwlib.
 %build
 %{__autoconf}
 %configure \
-	CPPFLAGS="-I/usr/X11R6/include" \
 	%{!?_with_dc:--enable-firewireavc} \
 	%{?_with_dc:--enable-firewiredc}
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make" \
-	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include" \
-	LDFLAGS="-L/usr/X11R6/lib %{rpmldflags}"
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make" \
-	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include" \
-	LDFLAGS="-L/usr/X11R6/lib %{rpmldflags}"
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -124,9 +121,6 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make"
-
-# FIXME - ugly workaround:
-ln -s libpt.so.%{version} $RPM_BUILD_ROOT%{_libdir}/libpt.so.1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -138,8 +132,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.txt
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
-# FIXME - ugly workaround:
-%attr(755,root,root) %{_libdir}/libpt.so.1
 
 %files devel
 %defattr(644,root,root,755)
