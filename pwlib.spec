@@ -58,6 +58,7 @@ Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel
+Requires:	cyrus-sasl-devel >= 2.0
 Requires:	expat-devel
 Requires:	libstdc++-devel
 Requires:	openldap-devel
