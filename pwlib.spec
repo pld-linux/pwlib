@@ -13,12 +13,11 @@ BuildRequires:	bison
 BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
-
 %description 
 PWLib is a moderately large class library that has its genesis many years ago asa method to product applications to run on both Microsoft Windows and Unix
 X-Windows systems. It also was to have a Macintosh port as well but this never
 eventuated.
+Unfortunately this package contains no GUI code.
 
 %package devel
 Summary:	Portable Windows Libary development files
@@ -61,12 +60,15 @@ PWLIBDIR=`pwd`; export PWLIBDIR
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}{/ptclib,/ptlib/unix/ptlib},%{_bindir},%{_datadir}/%{name}}
-install lib/lib* $RPM_BUILD_ROOT%{_libdir}
+
+#using cp as install won't preserve links
+cp -d lib/lib* $RPM_BUILD_ROOT%{_libdir}
 install include/*.h $RPM_BUILD_ROOT%{_includedir}
 install include/ptclib/*.h $RPM_BUILD_ROOT%{_includedir}/ptclib
 install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/unix/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
+install include/ptlib/unix/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
 install tools/asnparser/obj_linux_x86_r/asnparser $RPM_BUILD_ROOT%{_bindir}
 
 cd make
