@@ -1,10 +1,13 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
 Version:	1.1pl19
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_min_%{version}.tar.gz
+Patch0:		pwlib-mak_files.patch
+Patch1:		pwlib-libname.patch
+Patch2:		pwlib-asnparser.patch
 URL:		http://www.openh323.org/
 BuildRequires:	gcc-c++
 BuildRequires:	libstdc++-devel
@@ -51,10 +54,21 @@ Biblioteki statyczne pwlib.
 
 %prep
 %setup -qn %{name}
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 PWLIBDIR=`pwd`; export PWLIBDIR
-%{__make}
+PWLIB_BUILD="yes"; export PWLIB_BUILD
+%{__make} %{?debug:debugshared}%{!?debug:optshared} \
+		OPTCCFLAGS="$RPM_OPT_FLAGS"
+%{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
+		OPTCCFLAGS="$RPM_OPT_FLAGS"
+
+cd tools/asnparser
+%{__make} %{?debug:debugshared}%{!?debug:optshared} \
+		OPTCCFLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -68,11 +82,13 @@ install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/unix/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
 install include/ptlib/unix/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
-install tools/asnparser/obj_linux_x86_r/asnparser $RPM_BUILD_ROOT%{_bindir}
+install tools/asnparser/obj_linux_x86_?/asnparser $RPM_BUILD_ROOT%{_bindir}
 
 cd make
 for l in *.mak ; do
-	sed -e's@\$(PWLIBDIR)/make/@%{_datadir}/pwlib/@' < $l > $RPM_BUILD_ROOT%{_datadir}/%{name}/$l
+	sed -e's/@prefix@/${_prefix}/' \
+	    -e's/@datadir@/${_datadir}\/pwlib/' \
+		< $l > $RPM_BUILD_ROOT%{_datadir}/%{name}/$l
 done
 
 %clean
