@@ -1,5 +1,6 @@
 Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
+Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.2.13
 Release:	2
@@ -34,9 +35,17 @@ tworzenie aplikacji dzia³aj±cych zarówno pod Microsoft Windows jak i
 uniksowych X Window. Mia³a te¿ mieæ port na Macintosha. Ten pakiet nie
 zawiera kodu GUI.
 
+%description -l pt_BR
+PWLib e uma biblioteca de classes razoavelmente grande que teve seu
+inicio ha alguns anos atras como um metodo para produzir aplicacoes
+para serem executadas tanto em Windows quanto em sitemas Unix baseados
+em X-Window. Tambem possui um porte para Macintosh mas nunca foi
+terminado. Esta versao nao contem nenhum codigo para interface.
+
 %package devel
 Summary:	Portable Windows Libary development files
 Summary(pl):	Pliki dla developerów pwlib
+Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 Requires:	openssl-devel
@@ -48,6 +57,10 @@ Header files and libraries for developing applications that use pwlib.
 %description devel -l pl
 Pliki nag³ówkowe i biblioteki konieczne do rozwoju aplikacji
 u¿ywaj±cych pwlib.
+
+%description devel -l pt_BR
+O pacote pwlib-devel inclui as bibliotecas e arquivos de header para a
+biblioteca pwlib.
 
 %package static
 Summary:	Portable Windows Libary static libraries
@@ -76,16 +89,16 @@ PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	EXTLIBS="-lstdc++ -lexpat" 
+	EXTLIBS="-lstdc++ -lexpat"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
-	
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
+
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
 
 %install
 rm -rf $RPM_BUILD_ROOT
