@@ -1,22 +1,22 @@
 Summary:	Portable Windows Libary
-Summary(pl):	Przeno¶na biblioteka okienkowa
+Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.4.7
+Version:	1.4.11
 Release:	1
-License:	GPL
+License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-EOF.patch
+Patch3:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
-BuildRequires:	flex
 BuildRequires:	expat-devel
+BuildRequires:	flex
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.7
-BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,7 +41,7 @@ terminado. Esta versao nao contem nenhum codigo para interface.
 
 %package devel
 Summary:	Portable Windows Libary development files
-Summary(pl):	Pliki dla developerów pwlib
+Summary(pl):	Pliki dla programistów u¿ywaj±cych pwlib
 Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
@@ -76,18 +76,19 @@ Biblioteki statyczne pwlib.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}" 
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}" 
 
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -120,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.txt
-%{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
