@@ -1,0 +1,40 @@
+diff -aurN pwlib.orig/make/unix.mak pwlib/make/unix.mak
+--- pwlib.orig/make/unix.mak	2003-05-22 14:17:06.000000000 +0200
++++ pwlib/make/unix.mak	2003-07-12 21:25:45.000000000 +0200
+@@ -836,9 +836,6 @@
+ LIB_SUFFIX	= $(SHAREDLIBEXT)
+ else   
+ LIB_SUFFIX	= a 
+-ifndef DEBUG
+-LIB_TYPE	= _s
+-endif
+ endif # P_SHAREDLIB
+ 
+ ifndef LIB_TYPE
+@@ -884,13 +881,13 @@
+ PW_LIBDIR	= $(PWLIBDIR)/lib
+ 
+ # set name of the PT library
+-PTLIB_BASE	= pt_$(PLATFORM_TYPE)_$(OBJ_SUFFIX)
++PTLIB_BASE	= pt
+ PTLIB_FILE	= lib$(PTLIB_BASE)$(LIB_TYPE).$(LIB_SUFFIX)
+ PT_OBJBASE	= obj_$(PLATFORM_TYPE)_$(OBJDIR_SUFFIX)
+ PT_OBJDIR	= $(PW_LIBDIR)/$(PT_OBJBASE)
+ 
+ # set name of the PW library (may not be used)
+-PWLIB_BASE	= pw_$(GUI_TYPE)_$(PLATFORM_TYPE)_$(OBJ_SUFFIX)
++PWLIB_BASE	= pw_$(GUI_TYPE)
+ PWLIB_FILE	= lib$(PWLIB_BASE)$(LIB_TYPE).$(LIB_SUFFIX)
+ PW_OBJBASE	= obj_$(GUI_TYPE)_$(PLATFORM_TYPE)_$(OBJDIR_SUFFIX)
+ PW_OBJDIR	= $(PW_LIBDIR)/$(PW_OBJBASE)
+--- pwlib/make/lib.mak.orig	2003-07-29 14:33:34.000000000 +0200
++++ pwlib/make/lib.mak	2003-09-03 20:15:16.621577000 +0200
+@@ -135,7 +135,7 @@
+ ifneq ($(P_SHAREDLIB),1)
+   STATIC_LIB_FILE = $(LIBDIR)/$(LIB_FILENAME)
+ else
+-  STATIC_LIB_FILE = $(LIBDIR)/$(subst .$(LIB_SUFFIX),_s.$(STATICLIBEXT),$(LIB_FILENAME))
++  STATIC_LIB_FILE = $(LIBDIR)/$(subst .$(LIB_SUFFIX),.$(STATICLIBEXT),$(LIB_FILENAME))
+ endif
+ 
+ $(LIBDIR)/$(LIB_FILENAME) : $(TARGETLIB)

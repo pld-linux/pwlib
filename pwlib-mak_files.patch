@@ -1,0 +1,148 @@
+--- pwlib/make/common.mak.orig	2003-02-03 07:08:52.000000000 +0100
++++ pwlib/make/common.mak	2003-07-12 23:41:53.000000000 +0200
+@@ -339,6 +339,7 @@
+ 	$(LD)   --split-by-reloc 65535 -r   $(OBJS) -o $@ 
+ endif
+ 
++ifdef PWLIB_BUILD
+ ifdef DEBUG
+ 
+ ifneq (,$(wildcard $(PWLIBDIR)/src/ptlib/unix))
+@@ -364,6 +365,7 @@
+ endif
+ 
+ endif
++endif
+ 
+ CLEAN_FILES += $(TARGET)
+ 
+--- pwlib/make/gui.mak.orig	2001-06-15 02:58:00.000000000 +0200
++++ pwlib/make/gui.mak	2003-07-12 23:42:53.000000000 +0200
+@@ -64,11 +64,11 @@
+ #
+ 
+ 
+-include $(PWLIBDIR)/make/defaultgui.mak
++include $(PWLIBMAKEDIR)/defaultgui.mak
+ 
+ ifneq (,$(GUI_TYPE))
+ 
+-include $(PWLIBDIR)/make/$(GUI_TYPE).mak
++include $(PWLIBMAKEDIR)/$(GUI_TYPE).mak
+ 
+ ifndef	GUI_SRC_NAME
+ GUI_SRC_NAME	= $(GUI_TYPE)
+--- pwlib/make/ptlib.mak.orig	1998-12-02 03:37:31.000000000 +0100
++++ pwlib/make/ptlib.mak	2003-07-12 23:44:42.000000000 +0200
+@@ -35,10 +35,13 @@
+ #
+ 
+ ifndef PWLIBDIR
+-PWLIBDIR=$(HOME)/pwlib
++PWLIBDIR=/usr
++endif
++ifndef PWLIBMAKEDIR
++PWLIBMAKEDIR=/usr/share/pwlib/make
+ endif
+ 
+-include $(PWLIBDIR)/make/unix.mak
+-include $(PWLIBDIR)/make/common.mak
++include $(PWLIBMAKEDIR)/unix.mak
++include $(PWLIBMAKEDIR)/common.mak
+ 
+ # End of ptlib.mak
+--- pwlib/make/pwlib.mak.orig	1998-12-02 03:39:53.000000000 +0100
++++ pwlib/make/pwlib.mak	2003-07-12 23:45:21.000000000 +0200
+@@ -44,11 +44,14 @@
+ #
+ 
+ ifndef PWLIBDIR
+-PWLIBDIR=$(HOME)/pwlib
++PWLIBDIR=/usr
++endif
++ifndef PWLIBMAKEDIR
++PWLIBMAKEDIR=/usr/share/pwlib/make
+ endif
+ 
+-include $(PWLIBDIR)/make/unix.mak
+-include $(PWLIBDIR)/make/gui.mak
+-include $(PWLIBDIR)/make/common.mak
++include $(PWLIBMAKEDIR)/unix.mak
++include $(PWLIBMAKEDIR)/gui.mak
++include $(PWLIBMAKEDIR)/common.mak
+ 
+ # End of pwlib.mak
+--- pwlib/make/unix.mak.orig	2003-05-22 14:17:06.000000000 +0200
++++ pwlib/make/unix.mak	2003-07-12 23:46:41.000000000 +0200
+@@ -57,13 +57,16 @@
+ #
+ 
+ ifndef PWLIBDIR
+-PWLIBDIR = $(HOME)/pwlib
++PWLIBDIR=@prefix@
++endif
++ifndef PWLIBMAKEDIR
++PWLIBMAKEDIR=@makdir@
+ endif
+ 
+ ####################################################
+ 
+ # include generated build options file, then include it
+-include $(PWLIBDIR)/make/ptbuildopts.mak
++include $(PWLIBMAKEDIR)/ptbuildopts.mak
+ 
+ ###############################################################################
+ #
+@@ -298,10 +298,6 @@
+ # any -W overrides won't have any effect
+ STDCCFLAGS += -Wall 
+ 
+-ifdef RPM_OPT_FLAGS
+-STDCCFLAGS	+= $(RPM_OPT_FLAGS)
+-endif
+-
+ ifneq ($(OSTYPE),rtems)
+ ifndef SYSINCDIR
+ SYSINCDIR := /usr/include
+@@ -347,7 +343,7 @@
+ 
+ 
+ STATIC_LIBS	:= libstdc++.a libg++.a libm.a libc.a
+-SYSLIBDIR	:= $(shell $(PWLIBDIR)/make/ptlib-config --libdir)
++SYSLIBDIR	:= $(shell $(PWLIBDIR)/bin/ptlib-config --libdir)
+ #LDFLAGS	+= --no-whole-archive --cref
+ STDCCFLAGS      += -DP_USE_PRAGMA
+ OPTCCFLAGS      += -DP_USE_PRAGMA
+--- pwlib/make/ptbuildopts.mak.in.orig	2003-07-25 00:01:42.000000000 +0200
++++ pwlib/make/ptbuildopts.mak.in	2003-09-03 08:20:46.772784632 +0200
+@@ -2,7 +2,7 @@
+ #
+ 
+ ifndef PWLIBDIR
+-PWLIBDIR   = @PWLIBDIR@
++PWLIBDIR   = @INSTALLPREFIX@
+ endif
+ 
+ MACHTYPE   = @MACHTYPE@
+@@ -11,7 +11,6 @@
+ 
+ STDCCFLAGS    += @STDCCFLAGS@
+ OPTSTDCCFLAGS += @OPTSTDCCFLAGS@
+-LDFLAGS	      += @LDFLAGS@
+ ENDLDLIBS     += @ENDLDLIBS@
+ 
+ HAS_OPENSSL	= @HAS_OPENSSL@
+--- pwlib/make/ptlib-config.in.orig	2003-07-28 20:27:23.000000000 +0200
++++ pwlib/make/ptlib-config.in	2003-09-03 08:21:48.498400912 +0200
+@@ -6,10 +6,9 @@
+ 
+ VERSION="@PWLIB_VERSION@"
+ CCFLAGS="@STDCCFLAGS@"
+-LDFLAGS="@LDFLAGS@"
+ LIBS="@ENDLDLIBS@"
+ LIBDIR="@libdir@"
+-PWINSTDIR="@INSTALLPREFIX@/share/pwlib"
++PWINSTDIR="@INSTALLPREFIX@"
+ MACHTYPE="@MACHTYPE@"
+ OSTYPE="@OSTYPE@"
+ OSRELEASE="@OSRELEASE@"

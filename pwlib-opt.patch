@@ -1,0 +1,30 @@
+--- pwlib/make/unix.mak.orig	2003-04-18 03:21:13.000000000 +0200
++++ pwlib/make/unix.mak	2003-04-18 03:28:58.000000000 +0200
+@@ -737,10 +737,8 @@
+ ifeq ($(MACHTYPE),x86)
+ ifdef CPUTYPE
+ ifeq ($(CPUTYPE),crusoe)
+-STDCCFLAGS	+= -fomit-frame-pointer -fno-strict-aliasing -fno-common -pipe -mpreferred-stack-boundary=2 -march=i686 -malign-functions=0 
++STDCCFLAGS	+= -fno-strict-aliasing -fno-common -pipe -mpreferred-stack-boundary=2 -malign-functions=0 
+ STDCCFLAGS      += -malign-jumps=0 -malign-loops=0
+-else
+-STDCCFLAGS	+= -mcpu=$(CPUTYPE)
+ endif
+ endif
+ endif
+--- pwlib/src/ptlib/unix/Makefile.orig	2003-02-24 18:49:02.000000000 +0100
++++ pwlib/src/ptlib/unix/Makefile	2003-04-18 03:38:01.000000000 +0200
+@@ -594,11 +594,11 @@
+ ifdef REQUIRES_SEPARATE_SWITCH 
+ $(OBJDIR)/switch.o: ./switch.cxx
+ 	@if [ ! -d $(OBJDIR) ] ; then mkdir -p $(OBJDIR) ; fi
+-	$(CPLUS) $(CFLAGS) $(STDCCFLAGS) -c $< -o $@
++	$(CPLUS) $(CFLAGS) $(STDCCFLAGS) $(OPTCCFLAGS) -c $< -o $@
+ endif
+ 
+ $(OBJDIR)/getdate.tab.o: $(GETDATE_SOURCE)
+-	$(CC) $(CFLAGS) $(STDCCFLAGS) -c $< -o $@
++	$(CC) $(CFLAGS) $(STDCCFLAGS) $(OPTCCFLAGS) -c $< -o $@
+ 
+ $(DEPDIR)/getdate.tab.dep: $(GETDATE_SOURCE)
+ 	$(CC) $(STDCCFLAGS) -M $< >> $@
