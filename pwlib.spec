@@ -92,10 +92,12 @@ PWLIB_BUILD="yes"; export PWLIB_BUILD
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib},%{_bindir},%{_datadir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib}} \
+	$RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_datadir}/%{name}}
 
 #using cp as install won't preserve links
 cp -d lib/lib* $RPM_BUILD_ROOT%{_libdir}
+
 install version.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/*.h $RPM_BUILD_ROOT%{_includedir}
 install include/ptclib/*.h $RPM_BUILD_ROOT%{_includedir}/ptclib
@@ -103,7 +105,9 @@ install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/ptlib/unix/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
 install include/ptlib/unix/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
+
 install tools/asnparser/obj_linux_*/asnparser $RPM_BUILD_ROOT%{_bindir}
+install tools/asnparser/asnparser.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 cd make
 for l in *.mak ; do
@@ -125,10 +129,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/*
-%attr(755,root,root) %{_libdir}/*.so
 %attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_libdir}/*.so
+%{_includedir}/*
 %{_datadir}/%{name}
+%{_mandir}/man1/*
 
 %files static
 %defattr(644,root,root,755)
