@@ -116,7 +116,8 @@ Biblioteki statyczne pwlib.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	PWLIBDIR="`pwd`" PWLIBMAKEDIR="`pwd`/make"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
