@@ -1,7 +1,7 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
 Version:	1.1pl19
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_min_%{version}.tar.gz
