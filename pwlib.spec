@@ -20,6 +20,7 @@ BuildRequires:	alsa-lib-devel >= 1.0.1
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bison >= 1.875
+BuildRequires:	cyrus-sasl-devel >= 2.0
 BuildRequires:	expat-devel
 BuildRequires:	flex
 BuildRequires:	libavc1394-devel
