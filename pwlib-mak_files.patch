@@ -79,10 +79,10 @@
  
  ifndef PWLIBDIR
 -PWLIBDIR = $(HOME)/pwlib
-+PWLIBDIR=@prefix@
++PWLIBDIR=/usr
 +endif
 +ifndef PWLIBMAKEDIR
-+PWLIBMAKEDIR=@makdir@
++PWLIBMAKEDIR=/usr/share/pwlib/make
  endif
  
  ####################################################
@@ -112,6 +112,33 @@
 +SYSLIBDIR	:= $(shell $(PWLIBDIR)/bin/ptlib-config --libdir)
  
  endif # linux
+ 
+@@ -872,7 +870,7 @@
+ endif
+ 
+ ifndef INSTALLLIB_DIR
+-INSTALLLIB_DIR	= $(INSTALL_DIR)/lib
++INSTALLLIB_DIR	= $(subst $(PWLIBDIR),$(INSTALL_DIR),$(SYSLIBDIR))
+ endif
+ 
+ 
+@@ -899,7 +897,7 @@
+ UNIX_SRC_DIR	= $(PWLIBDIR)/src/ptlib/unix
+ endif
+ 
+-PW_LIBDIR	= $(PWLIBDIR)/lib
++PW_LIBDIR	= $(SYSLIBDIR)
+ 
+ # set name of the PT library
+ PTLIB_BASE	= pt
+@@ -947,7 +945,7 @@
+ # define ESDDIR variables if installed
+ ifdef  ESDDIR
+ STDCCFLAGS	+= -I$(ESDDIR)/include -DUSE_ESD=1
+-ENDLDLIBS	+= $(ESDDIR)/lib/libesd.a  # to avoid name conflicts
++ENDLDLIBS	+= -lesd
+ HAS_ESD		= 1
+ endif
  
 --- pwlib/make/ptbuildopts.mak.in.orig	2003-07-25 00:01:42.000000000 +0200
 +++ pwlib/make/ptbuildopts.mak.in	2003-09-03 08:20:46.772784632 +0200
