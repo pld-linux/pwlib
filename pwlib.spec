@@ -107,7 +107,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/*
 %attr(755,root,root) %{_libdir}/*.so
 %attr(755,root,root) %{_bindir}/*
-%{_datadir}/*
+%{_datadir}/%{name}
 
 %files static
 %defattr(644,root,root,755)
