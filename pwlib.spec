@@ -1,18 +1,22 @@
+# TODO:
+# - do we really need patches?
+
 Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.6.6
+Version:	1.8.4
 %define	fver	%(echo %{version} | tr . _)
-Release:	2
+Release:	0.3
 License:	MPL 1.0
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src.tar.gz
-# Source0-md5:	c3ae07b03cd48d57cd9d6ec346182ed4
-Patch0:		%{name}-mak_files.patch
-Patch1:		%{name}-libname.patch
-Patch2:		%{name}-bison-pure.patch
-Patch3:		%{name}-opt.patch
+Source0:	http://www.seconix.com/%{name}-%{version}.tar.gz
+# Source0-md5:	fc638a64216b7751271c539ee4ccd0a8
+#Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
+#Patch0:		%{name}-mak_files.patch
+#Patch1:		%{name}-libname.patch
+#Patch2:		%{name}-bison-pure.patch
+#Patch3:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel >= 1.0.1
@@ -148,13 +152,13 @@ v4l video input plugin.
 Wtyczka wej¶cia obrazu v4l.
 
 %prep
-%setup -qn %{name}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%setup -q
+#%patch0 -p1
+#%patch1 -p1
+#%patch2 -p1
+#%patch3 -p1
 
-ln -sf make bin
+#ln -sf make bin
 
 %build
 cp -f /usr/share/automake/config.* .
@@ -162,21 +166,32 @@ cp -f /usr/share/automake/config.* .
 %configure \
 	--enable-plugins
 
-%{__make} %{?debug:debugshared}%{!?debug:optshared} \
-	PWLIBDIR="`pwd`" \
-	PWLIBMAKEDIR="`pwd`/make" \
-	PW_LIBDIR="`pwd`/lib" \
-	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}" \
-	CXX="%{__cxx}"
+%{__make} 
+
+#%{?debug:debugshared}%{!?debug:optshared} \
+#	PWLIBDIR="`pwd`" \
+#	PWLIBMAKEDIR="`pwd`/make" \
+#	PW_LIBDIR="`pwd`/lib" \
+#	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}" \
+#	CXX="%{__cxx}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}}
+
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	PWLIBDIR="`pwd`" \
-	PWLIBMAKEDIR="`pwd`/make" \
-	PW_LIBDIR="`pwd`/lib"
+	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
+	LIBDIR=$RPM_BUILD_ROOT%{_libdir}
+
+cp -d lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
+
+perl -pi -e 's@PWLIBDIR.*=.*@PWLIBDIR = /usr/share/pwlib@' $RPM_BUILD_ROOT%{_datadir}/pwlib/make/ptbuildopts.mak
+
+#	DESTDIR=$RPM_BUILD_ROOT \
+#	PWLIBDIR="`pwd`" \
+#	PWLIBMAKEDIR="`pwd`/make" \
+#	PW_LIBDIR="`pwd`/lib"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -187,21 +202,23 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.txt
-%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libpt*.so.*.*.*
 %dir %{_libdir}/pwlib
-%dir %{_libdir}/pwlib/device
-%dir %{_libdir}/pwlib/device/sound
-%dir %{_libdir}/pwlib/device/videoinput
+%dir %{_libdir}/pwlib/devices
+%dir %{_libdir}/pwlib/devices/sound
+%dir %{_libdir}/pwlib/devices/videoinput
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/libpt*.so
+%attr(755,root,root) %{_datadir}/%{name}/make/ptlib-config
 %{_includedir}/ptclib
 %{_includedir}/ptlib
 %{_includedir}/*.h
-%{_datadir}/%{name}
-%{_mandir}/man1/*
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/make
+%{_datadir}/%{name}/make/*.mak
 
 %files static
 %defattr(644,root,root,755)
@@ -209,20 +226,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %files sound-alsa
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/pwlib/device/sound/alsa.so
+%attr(755,root,root) %{_libdir}/pwlib/devices/sound/alsa_pwplugin.so
 
 %files sound-oss
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/pwlib/device/sound/oss.so
+%attr(755,root,root) %{_libdir}/pwlib/devices/sound/oss_pwplugin.so
 
 %files video-avc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/avc.so
+%attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/avc_pwplugin.so
 
 %files video-dc
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/dc.so
+%attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/dc_pwplugin.so
 
 %files video-v4l
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/v4l.so
+%attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/v4l_pwplugin.so
