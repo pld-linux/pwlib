@@ -4,20 +4,20 @@
 #			  (instead of libavc1394)
 #
 
-%define _snap 20040124
-%define _snapbuild 01
+%define _snap 20040223
+%define _snapbuild 02
 
 
 Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.6.2
+Version:	1.6.4
 Release:	0.%{_snap}.2
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://snapshots.seconix.com/cvs/archive/%{name}-cvs_%{_snap}-%{_snapbuild}.tar.gz
-# Source0-md5:	0a1f1198f662ec1fe620aba5b630716d
+# Source0-md5:	f614e22c0b7abb9ead3199b6c0fb3514
 Patch1:		%{name}-mak_files.patch
 Patch2:		%{name}-libname.patch
 Patch3:		%{name}-bison-pure.patch
