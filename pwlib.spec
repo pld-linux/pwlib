@@ -15,7 +15,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	expat-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	openssl-devel >= 0.9.6a
+BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -45,7 +45,7 @@ Summary(pl):	Pliki dla developerów pwlib
 Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
-Requires:	openssl-devel
+Requires:	openssl-devel >= 0.9.7
 Requires:	expat-devel
 
 %description devel
