@@ -21,7 +21,7 @@ Patch4:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
-BuildRequires:	bison
+BuildRequires:	bison >= 1.875
 BuildRequires:	expat-devel
 BuildRequires:	flex
 %{!?_with_dc:BuildRequires:	libavc1394-devel}
