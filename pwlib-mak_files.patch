@@ -72,9 +72,9 @@
 +include $(PWLIBMAKEDIR)/common.mak
  
  # End of pwlib.mak
---- pwlib/make/unix.mak.orig	2003-05-22 14:17:06.000000000 +0200
-+++ pwlib/make/unix.mak	2003-07-12 23:46:41.000000000 +0200
-@@ -57,13 +57,16 @@
+--- pwlib/make/unix.mak.orig	Thu Feb 26 12:19:07 2004
++++ pwlib/make/unix.mak	Wed Mar 17 15:06:05 2004
+@@ -100,13 +100,16 @@
  #
  
  ifndef PWLIBDIR
@@ -93,7 +93,7 @@
  
  ###############################################################################
  #
-@@ -298,10 +298,6 @@
+@@ -329,10 +332,6 @@
  # any -W overrides won't have any effect
  STDCCFLAGS += -Wall 
  
@@ -104,15 +104,15 @@
  ifneq ($(OSTYPE),rtems)
  ifndef SYSINCDIR
  SYSINCDIR := /usr/include
-@@ -347,7 +343,7 @@
+@@ -379,7 +378,7 @@
  
  
  STATIC_LIBS	:= libstdc++.a libg++.a libm.a libc.a
 -SYSLIBDIR	:= $(shell $(PWLIBDIR)/make/ptlib-config --libdir)
 +SYSLIBDIR	:= $(shell $(PWLIBDIR)/bin/ptlib-config --libdir)
- #LDFLAGS	+= --no-whole-archive --cref
- STDCCFLAGS      += -DP_USE_PRAGMA
- OPTCCFLAGS      += -DP_USE_PRAGMA
+ 
+ endif # linux
+ 
 --- pwlib/make/ptbuildopts.mak.in.orig	2003-07-25 00:01:42.000000000 +0200
 +++ pwlib/make/ptbuildopts.mak.in	2003-09-03 08:20:46.772784632 +0200
 @@ -2,7 +2,7 @@
@@ -146,3 +146,49 @@
  MACHTYPE="@MACHTYPE@"
  OSTYPE="@OSTYPE@"
  OSRELEASE="@OSRELEASE@"
+--- pwlib/Makefile.in.orig	Thu Feb 26 13:04:10 2004
++++ pwlib/Makefile.in	Wed Mar 17 15:51:02 2004
+@@ -208,10 +208,11 @@
+ 	doc++ --dir html --tables pwlib.dxx
+ 
+ install:
+-	mkdir -p $(DESTDIR)$(PREFIX)/include
++	mkdir -p $(DESTDIR)$(PREFIX)/include/{ptclib,ptlib/unix/ptlib}
+ 	mkdir -p $(DESTDIR)$(PREFIX)/bin
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/pwlib
+ 	mkdir -p $(DESTDIR)$(PREFIX)/share/pwlib/make/
++	mkdir -p $(DESTDIR)$(PREFIX)/share/man/man1
+ 	mkdir -p $(DESTDIR)$(LIBDIR)
+ 	mkdir -p $(DESTDIR)$(LIBDIR)/pwlib
+ 	chmod a+r lib/*@SHAREDLIBEXT@*
+@@ -235,24 +236,20 @@
+ 	rm -f  libpt.@SHAREDLIBEXT@ ; \
+ 	ln -sf $(PTLIB_FILE) libpt.@SHAREDLIBEXT@ \
+ 	)
++	install -m644 lib/libpt.a $(DESTDIR)$(LIBDIR)
+ ###	cp -df lib/*@SHAREDLIBEXT@* $(DESTDIR)$(LIBDIR)/
+ ifeq (1, $(HAS_PLUGINS))
+ 	cp -rf plugins/pwlib         $(DESTDIR)$(LIBDIR)
+ endif
+-	cp -rf include/ptclib        $(DESTDIR)$(PREFIX)/include/
+-	cp -rf include/ptlib         $(DESTDIR)$(PREFIX)/include/
++	cp -rf include/ptclib/*.h    $(DESTDIR)$(PREFIX)/include/ptclib
++	cp -rf include/ptlib/*.{h,inl} $(DESTDIR)$(PREFIX)/include/ptlib
++	cp -rf include/ptlib/unix/ptlib/*.{h,inl} $(DESTDIR)$(PREFIX)/include/ptlib/unix/ptlib
+ 	cp -rf include/ptbuildopts.h $(DESTDIR)$(PREFIX)/include/
+ 	cp -rf include/ptlib.h       $(DESTDIR)$(PREFIX)/include/
+ 	cp tools/asnparser/obj*/asnparser $(DESTDIR)$(PREFIX)/bin/
+ 	cp -rf make/*.mak    $(DESTDIR)$(PREFIX)/share/pwlib/make/
+-	cp make/ptlib-config $(DESTDIR)$(PREFIX)/share/pwlib/make/
+-	(cd $(DESTDIR)$(PREFIX)/bin; ln -snf ../share/pwlib/make/ptlib-config ptlib-config)
+-	rm -rf $(DESTDIR)$(PREFIX)/include/ptlib/CVS/
+-	rm -rf $(DESTDIR)$(PREFIX)/include/ptlib/unix/CVS/
+-	rm -rf $(DESTDIR)$(PREFIX)/include/ptlib/unix/ptlib/CVS/
+-	rm -rf $(DESTDIR)$(PREFIX)/include/ptclib/CVS/
+-	chmod -R a+r $(DESTDIR)$(PREFIX)/include/ptlib $(DESTDIR)$(PREFIX)/include/ptclib $(DESTDIR)$(PREFIX)/include/ptlib.h $(DESTDIR)$(PREFIX)/share/pwlib $(DESTDIR)$(PREFIX)/include/ptbuildopts.h $(DESTDIR)$(PREFIX)/include/ptlib.h $(DESTDIR)$(LIBDIR)/pwlib/
+-	chmod a+rx $(DESTDIR)$(PREFIX)/include/ptlib $(DESTDIR)$(PREFIX)/include/ptlib/unix $(DESTDIR)$(PREFIX)/include/ptlib/unix/ptlib $(DESTDIR)$(PREFIX)/include/ptclib $(DESTDIR)$(PREFIX)/bin/ptlib-config $(DESTDIR)$(PREFIX)/share/pwlib/make/ 
++	install -m755 make/ptlib-config $(DESTDIR)$(PREFIX)/bin
++	install -m644 tools/asnparser/asnparser.1 $(DESTDIR)$(PREFIX)/share/man/man1
+ 
+ uninstall:
+ 	rm -rf $(DESTDIR)$(PREFIX)/include/ptlib $(DESTDIR)$(PREFIX)/include/ptclib $(DESTDIR)$(PREFIX)/include/ptlib.h $(DESTDIR)$(PREFIX)/include/ptbuildopts.h $(DESTDIR)$(PREFIX)/share/pwlib/ $(DESTDIR)$(LIBDIR)/pwlib/
