@@ -1,18 +1,16 @@
-diff -aurN pwlib.orig/make/unix.mak pwlib/make/unix.mak
---- pwlib.orig/make/unix.mak	2003-05-22 14:17:06.000000000 +0200
-+++ pwlib/make/unix.mak	2003-07-12 21:25:45.000000000 +0200
-@@ -836,9 +836,6 @@
- LIB_SUFFIX	= $(SHAREDLIBEXT)
+--- pwlib-1.8.4/make/unix.mak.orig	2005-03-25 00:07:16.116323760 +0100
++++ pwlib-1.8.4/make/unix.mak	2005-03-25 00:17:54.552266744 +0100
+@@ -840,7 +840,7 @@
+ LIB_TYPE	=
  else   
  LIB_SUFFIX	= a 
--ifndef DEBUG
 -LIB_TYPE	= _s
--endif
++LIB_TYPE	=
  endif # P_SHAREDLIB
  
- ifndef LIB_TYPE
-@@ -884,13 +881,13 @@
- PW_LIBDIR	= $(PWLIBDIR)/lib
+ ifndef INSTALL_DIR
+@@ -882,13 +882,13 @@
+ PW_LIBDIR	= $(SYSLIBDIR)
  
  # set name of the PT library
 -PTLIB_BASE	= pt_$(PLATFORM_TYPE)_$(OBJ_SUFFIX)
