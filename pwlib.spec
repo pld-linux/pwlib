@@ -1,6 +1,6 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
-Version:	1.1.35
+Version:	1.1.36
 Release:	1
 License:	GPL
 Group:		Libraries
