@@ -1,4 +1,3 @@
-
 Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
@@ -25,6 +24,7 @@ BuildRequires:	bison >= 1.875
 BuildRequires:	expat-devel
 BuildRequires:	flex
 BuildRequires:	libavc1394-devel
+BuildRequires:	libdc1394-devel
 BuildRequires:	libdv-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openldap-devel
@@ -59,8 +59,6 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel
 Requires:	expat-devel
-Requires:	libavc1394-devel
-Requires:	libdv-devel
 Requires:	libstdc++-devel
 Requires:	openldap-devel
 Requires:	openssl-devel >= 0.9.7c
@@ -115,33 +113,41 @@ OSS audio plugin.
 %description sound-oss -l pl
 Wtyczka d¼wiêkowa OSS.
 
+%package video-avc
+Summary:	AVC 1394 video input plugin
+Summary(pl):	Wtyczka wej¶cia obrazu AVC 1394
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description video-avc
+AVC 1394 video input plugin.
+
+%description video-avc -l pl
+Wtyczka wej¶cia obrazu AVC 1394.
+
+%package video-dc
+Summary:	DC 1394 video input plugin
+Summary(pl):	Wtyczka wej¶cia obrazu DC 1394
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description video-dc
+DC 1394 video input plugin.
+
+%description video-dc -l pl
+Wtyczka wej¶cia obrazu DC 1394.
+
 %package video-v4l
-Summary:	v4l video plugin
-Summary(pl):	Wtyczka wideo v4l
+Summary:	v4l video input plugin
+Summary(pl):	Wtyczka wej¶cia obrazu v4l
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description video-v4l
-v4l video plugin.
+v4l video input plugin.
 
 %description video-v4l -l pl
-Wtyczka wideo v4l.
-
-%package video-avc
-Summary:	AVC 1394 video plugin
-Summary(pl):	Wtyczka wideo AVC 1394
-Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	libavc1394
-Requires:	libdv
-Requires:	libraw1394
-
-%description video-avc
-AVC 1394 video plugin.
-
-%description video-avc -l pl
-Wtyczka wideo AVC 1394.
-
+Wtyczka wej¶cia obrazu v4l.
 
 %prep
 %setup -qn %{name}
@@ -181,7 +187,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.txt
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
+%dir %{_libdir}/pwlib
 %dir %{_libdir}/pwlib/device
+%dir %{_libdir}/pwlib/device/sound
+%dir %{_libdir}/pwlib/device/videoinput
 
 %files devel
 %defattr(644,root,root,755)
@@ -205,10 +214,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/device/sound/oss.so
 
-%files video-v4l
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/v4l.so
-
 %files video-avc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/device/videoinput/avc.so
+
+%files video-dc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/dc.so
+
+%files video-v4l
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/device/videoinput/v4l.so
