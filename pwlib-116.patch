@@ -1,12 +1,11 @@
-diff -urN pwlib.org/src/ptlib/unix/oss.cxx pwlib/src/ptlib/unix/oss.cxx
---- pwlib.org/src/ptlib/unix/oss.cxx	Tue Jan  8 02:31:58 2002
-+++ pwlib/src/ptlib/unix/oss.cxx	Tue Jan  8 20:02:51 2002
-@@ -387,7 +387,7 @@
+--- pwlib/src/ptlib/unix/oss.cxx.orig	Mon Jan  7 05:15:38 2002
++++ pwlib/src/ptlib/unix/oss.cxx	Thu Jan 17 03:24:23 2002
+@@ -391,7 +391,7 @@
          struct stat s;
          if (lstat(devname, &s) == 0) {
-           // OSS compatible audio major device numbers (OSS, ALSA, SAM9407, etc)
--          static const unsigned deviceNumbers[] = { 14, 116, 145 };
-+          static const unsigned deviceNumbers[] = { 14, 145 };
+           // OSS compatible audio major device numbers (OSS, SAM9407, etc)
+-          static const unsigned deviceNumbers[] = { 14, 145 };
++          static const unsigned deviceNumbers[] = { 14, 116, 145 };
            for (PINDEX i = 0; i < PARRAYSIZE(deviceNumbers); i++) {
              if ((s.st_rdev >> 8) == deviceNumbers[i]) {
                PINDEX cardnum = (s.st_rdev >> 4) & 15;
