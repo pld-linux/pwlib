@@ -1,0 +1,11 @@
+diff -urN pwlib/src/ptlib/common/getdate.y pwlib-modified/src/ptlib/common/getdate.y
+--- pwlib/src/ptlib/common/getdate.y	Tue Oct 30 02:56:15 2001
++++ pwlib-modified/src/ptlib/common/getdate.y	Mon Feb 25 17:35:01 2002
+@@ -22,6 +22,7 @@
+ #include <string.h>
+ #include <ctype.h>
+ #include <stdlib.h>
++#include <stdio.h>
+ 
+ 
+ #ifdef _MSC_VER
