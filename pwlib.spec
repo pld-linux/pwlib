@@ -123,10 +123,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/*.so
+%dir %{_includedir}/ptclib
+%dir %{_includedir}/ptlib
+%dir %{_includedir}/ptlib/unix
 %{_includedir}/*.h
 %{_includedir}/ptclib/*.h
 %{_includedir}/ptlib/*.h
+%{_includedir}/ptlib/*.inl
 %{_includedir}/ptlib/unix/ptlib/*.h
+%{_includedir}/ptlib/unix/ptlib/*.inl
+%dir %{_datadir}/%{name}/make
 %{_datadir}/%{name}/make/*.mak
 %{_datadir}/%{name}/make/gcc_filter
 %{_mandir}/man1/*
