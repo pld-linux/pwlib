@@ -7,17 +7,19 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.5.2
-Release:	3
+Version:	1.6.4
+%define	fver	%(echo %{version} | tr . _)-1
+Release:	0.1
 License:	MPL 1.0
 Group:		Libraries
-Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
-# Source0-md5:	0fa33ba1b32b254abe0b731a52c0f2f9
-Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-mak_files.patch
-Patch2:		%{name}-libname.patch
-Patch3:		%{name}-bison-pure.patch
-Patch4:		%{name}-opt.patch
+#Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src.tar.gz
+# Source0-md5:	72ed574c7c8b2f37ec88f046b5241a77
+# http://www.gnomemeeting.org/admin/downloads/latest/sources/sources/pwlib-1.6.3.tar.gz
+Patch0:		%{name}-mak_files.patch
+Patch1:		%{name}-libname.patch
+Patch2:		%{name}-bison-pure.patch
+Patch3:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
@@ -97,7 +99,6 @@ Biblioteki statyczne pwlib.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 ln -sf make bin
 
