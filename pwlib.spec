@@ -108,12 +108,14 @@ Biblioteki statyczne pwlib.
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make" \
-        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include"
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include" \
+	LDFLAGS="-L/usr/X11R6/lib %{rpmldflags}"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make" \
-        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include"
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG} -I/usr/X11R6/include" \
+	LDFLAGS="-L/usr/X11R6/lib %{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
