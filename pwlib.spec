@@ -2,7 +2,7 @@ Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.4.0
+Version:	1.4.3
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -95,6 +95,7 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib},%
 
 #using cp as install won't preserve links
 cp -d lib/lib* $RPM_BUILD_ROOT%{_libdir}
+install version.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/*.h $RPM_BUILD_ROOT%{_includedir}
 install include/ptclib/*.h $RPM_BUILD_ROOT%{_includedir}/ptclib
 install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
