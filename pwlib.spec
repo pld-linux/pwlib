@@ -86,8 +86,8 @@ install tools/asnparser/obj_linux_x86_?/asnparser $RPM_BUILD_ROOT%{_bindir}
 
 cd make
 for l in *.mak ; do
-	sed -e's/@prefix@/${_prefix}/' \
-	    -e's/@datadir@/${_datadir}\/pwlib/' \
+	sed -e's/@prefix@/%{_prefix}/' \
+	    -e's/@makdir@/%{_datadir}\/pwlib/' \
 		< $l > $RPM_BUILD_ROOT%{_datadir}/%{name}/$l
 done
 
