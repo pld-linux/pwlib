@@ -17,7 +17,7 @@ Patch3:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel >= 1.0.1
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	bison >= 1.875
 BuildRequires:	cyrus-sasl-devel >= 2.0
