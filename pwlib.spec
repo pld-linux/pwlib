@@ -4,7 +4,7 @@ Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.6.5
 %define	fver	%(echo %{version} | tr . _)
-Release:	2
+Release:	2.1
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://unc.dl.sourceforge.net/sourceforge/openh323/%{name}-v%{fver}-src.tar.gz
@@ -165,6 +165,7 @@ cp -f /usr/share/automake/config.* .
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make" \
+	PW_LIBDIR="`pwd`/lib" \
 	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %install
@@ -173,7 +174,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	PWLIBDIR="`pwd`" \
-	PWLIBMAKEDIR="`pwd`/make"
+	PWLIBMAKEDIR="`pwd`/make" \
+	PW_LIBDIR="`pwd`/lib"
 
 %clean
 rm -rf $RPM_BUILD_ROOT
