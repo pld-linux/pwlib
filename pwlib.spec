@@ -1,22 +1,31 @@
+#
+# Conditional build:
+# _with_dc		- with libdc1394 digital camera interface
+# 
 Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.4.11
+Version:	1.5.0
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
-# Source0-md5:	4abf0cd2fcad799e45d3d733efdca780
-Patch0:		%{name}-mak_files.patch
+# Source0-md5:	e6bcdd121a85687c040f4871f24b7352
+Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-EOF.patch
 Patch3:		%{name}-opt.patch
 URL:		http://www.openh323.org/
+BuildRequires:	SDL-devel
 BuildRequires:	bison
 BuildRequires:	expat-devel
 BuildRequires:	flex
+BuildRequires:	libavc1394-devel
+%{?_with_dc:BuildRequires:	libdc1394-devel}
+BuildRequires:	libdv-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel >= 0.9.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -80,42 +89,24 @@ Biblioteki statyczne pwlib.
 %patch3 -p1
 
 %build
-PWLIBDIR=`pwd`; export PWLIBDIR
-PWLIB_BUILD="yes"; export PWLIB_BUILD
-%{__make} %{?debug:debugshared}%{!?debug:optshared} \
-	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}" 
+%{__autoconf}
+%configure \
+	%{!?_with_dc:--enable-firewireavc} \
+	%{?_with_dc:--enable-firewiredc}
 
-%{__make} -C tools/asnparser \
-	%{?debug:debugshared}%{!?debug:optshared} \
-	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
+%{__make} %{?debug:debugshared}%{!?debug:optshared} \
+        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
+
+%{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
+        OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib}} \
-	$RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_datadir}/%{name}}
+        $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_datadir}/%{name}}
 
-#using cp as install won't preserve links
-cp -d lib/lib* $RPM_BUILD_ROOT%{_libdir}
-
-install version.h $RPM_BUILD_ROOT%{_includedir}/ptlib
-install include/*.h $RPM_BUILD_ROOT%{_includedir}
-install include/ptclib/*.h $RPM_BUILD_ROOT%{_includedir}/ptclib
-install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
-install include/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib
-install include/ptlib/unix/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
-install include/ptlib/unix/ptlib/*.inl $RPM_BUILD_ROOT%{_includedir}/ptlib/unix/ptlib
-
-install tools/asnparser/obj_linux_*/asnparser $RPM_BUILD_ROOT%{_bindir}
-install tools/asnparser/asnparser.1 $RPM_BUILD_ROOT%{_mandir}/man1
-
-cd make
-for l in *.mak ; do
-	sed -e 's#@prefix@#%{_prefix}#' \
-	    -e 's#@makdir@#%{_datadir}/pwlib#' \
-		< $l > $RPM_BUILD_ROOT%{_datadir}/%{name}/$l
-done
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -132,8 +123,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/*.so
-%{_includedir}/*
-%{_datadir}/%{name}
+%{_includedir}/*.h
+%{_includedir}/ptclib/*.h
+%{_includedir}/ptlib/*.h
+%{_includedir}/ptlib/unix/ptlib/*.h
+%{_datadir}/%{name}/make/*.mak
+%{_datadir}/%{name}/make/gcc_filter
 %{_mandir}/man1/*
 
 %files static
