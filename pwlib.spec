@@ -1,10 +1,10 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
-Version:	1.1pl19
-Release:	5
+Version:	1.1.31
+Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	http://www.openh323.org/bin/%{name}_min_%{version}.tar.gz
+Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 Patch0:		pwlib-mak_files.patch
 Patch1:		pwlib-libname.patch
 Patch2:		pwlib-asnparser.patch
