@@ -15,7 +15,7 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	expat-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	openssl-devel >= 0.9.6a
+BuildRequires:	openssl-devel >= 0.9.6m
 BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
