@@ -2,7 +2,7 @@ Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.4.4
+Version:	1.4.6
 Release:	1
 License:	GPL
 Group:		Libraries
