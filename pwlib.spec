@@ -1,7 +1,7 @@
 Summary:	Portable Windows Libary
 Name:		pwlib
 Version:	1.1.34
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
@@ -13,9 +13,10 @@ Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-asnparser.patch
 URL:		http://www.openh323.org/
+BuildRequires:	bison
 BuildRequires:	gcc-c++
 BuildRequires:	libstdc++-devel
-BuildRequires:	bison
+BuildRequires:	openssl-devel >= 0.9.6a
 BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
