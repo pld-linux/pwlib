@@ -15,9 +15,9 @@ Patch2:		%{name}-asnparser.patch
 Patch3:		%{name}-116.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
+BuildRequires:	expat-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.6a
-BuildRequires:	expat-devel
 BuildRequires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
