@@ -1,8 +1,8 @@
 Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Name:		pwlib
-Version:	1.2.9
-Release:	3
+Version:	1.2.11
+Release:	1
 License:	GPL
 Group:		Libraries
 Group(de):	Libraries
