@@ -10,7 +10,6 @@ Group:		Libraries
 #Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src.tar.gz
 # Source0-md5:	72ed574c7c8b2f37ec88f046b5241a77
-# http://www.gnomemeeting.org/admin/downloads/latest/sources/sources/pwlib-1.6.3.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
