@@ -2,13 +2,13 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.6.5
+Version:	1.6.6
 %define	fver	%(echo %{version} | tr . _)
-Release:	3
+Release:	1
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://unc.dl.sourceforge.net/sourceforge/openh323/%{name}-v%{fver}-src.tar.gz
-# Source0-md5:	acfbcfb87ca9a92ac54c0fb01c55c4b3
+# Source0-md5:	c3ae07b03cd48d57cd9d6ec346182ed4
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
