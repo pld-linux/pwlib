@@ -12,6 +12,7 @@ Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-asnparser.patch
+Patch3:		%{name}-116.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
 BuildRequires:	libstdc++-devel
@@ -63,6 +64,7 @@ Biblioteki statyczne pwlib.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 # it still ignores CC and CXX
