@@ -3,7 +3,7 @@ Summary(pl):	Przeno¶na biblioteka okienkowa
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.2.13
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
@@ -88,17 +88,16 @@ PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	EXTLIBS="-lstdc++ -lexpat"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}" 
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
