@@ -2,7 +2,7 @@ Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Name:		pwlib
 Version:	1.2.13
-Release:	1.1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
@@ -81,16 +81,13 @@ PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
 	EXTLIBS="-lstdc++ -lexpat" 
-#	CC="gcc2" CPP="g++2" CPLUS="g++2"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
-#	CC="gcc2" CPP="g++2" CPLUS="g++2"
 	
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
-#	CC="gcc2" CPP="g++2" CPLUS="g++2"
 
 %install
 rm -rf $RPM_BUILD_ROOT
