@@ -166,7 +166,8 @@ cp -f /usr/share/automake/config.* .
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make" \
 	PW_LIBDIR="`pwd`/lib" \
-	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
+	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}" \
+	CXX="%{__cxx}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
