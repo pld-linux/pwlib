@@ -36,6 +36,8 @@ Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name} = %{version}
+Requires:	openssl-devel
+Requires:	expat-devel
 
 %description devel
 Header files and libraries for developing applications that use pwlib.
