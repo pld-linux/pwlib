@@ -14,6 +14,7 @@ Patch4:		%{name}-EOF.patch
 Patch5:		%{name}-video.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
+BuildRequires:	flex
 BuildRequires:	expat-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openssl-devel >= 0.9.6a
