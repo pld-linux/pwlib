@@ -7,12 +7,12 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.5.0
-Release:	2
+Version:	1.5.2
+Release:	1
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
-# Source0-md5:	e6bcdd121a85687c040f4871f24b7352
+# Source0-md5:	0fa33ba1b32b254abe0b731a52c0f2f9
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-mak_files.patch
 Patch2:		%{name}-libname.patch
@@ -105,11 +105,6 @@ Biblioteki statyczne pwlib.
 	%{?_with_dc:--enable-firewiredc}
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
-	PWLIBDIR="`pwd`" \
-	PWLIBMAKEDIR="`pwd`/make" \
-	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
-
-%{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
 	PWLIBDIR="`pwd`" \
 	PWLIBMAKEDIR="`pwd`/make" \
 	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
