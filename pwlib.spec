@@ -14,9 +14,10 @@ Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 # Source0-md5:	e6bcdd121a85687c040f4871f24b7352
 Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-libname.patch
-Patch2:		%{name}-EOF.patch
-Patch3:		%{name}-opt.patch
+Patch1:		%{name}-mak_files.patch
+Patch2:		%{name}-libname.patch
+Patch3:		%{name}-bison-pure.patch
+Patch4:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	autoconf
@@ -95,6 +96,7 @@ Biblioteki statyczne pwlib.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__autoconf}
@@ -103,15 +105,15 @@ Biblioteki statyczne pwlib.
 	%{?_with_dc:--enable-firewiredc}
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
+	PWLIBDIR="`pwd`" PWLIBMAKEDIR="`pwd`/make" \
         OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
+	PWLIBDIR="`pwd`" PWLIBMAKEDIR="`pwd`/make" \
         OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib}} \
-        $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1,%{_datadir}/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -130,22 +132,13 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
-%attr(755,root,root) %{_libdir}/*.so
-%dir %{_includedir}/ptclib
-%dir %{_includedir}/ptlib
-%dir %{_includedir}/ptlib/unix
+%attr(755,root,root) %{_libdir}/lib*.so
+%{_includedir}/ptclib
+%{_includedir}/ptlib
 %{_includedir}/*.h
-%{_includedir}/ptclib/*.h
-%{_includedir}/ptlib/*.h
-%{_includedir}/ptlib/*.inl
-%{_includedir}/ptlib/unix/ptlib/*.h
-%{_includedir}/ptlib/unix/ptlib/*.inl
-%dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/make
-%{_datadir}/%{name}/make/*.mak
-%{_datadir}/%{name}/make/gcc_filter
+%{_datadir}/%{name}
 %{_mandir}/man1/*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/lib*.a

@@ -1,7 +1,7 @@
 diff -aurN pwlib.orig/Makefile.in pwlib/Makefile.in
 --- pwlib.orig/Makefile.in	2003-05-22 14:13:44.000000000 +0200
 +++ pwlib/Makefile.in	2003-07-12 21:04:13.000000000 +0200
-@@ -164,22 +164,24 @@
+@@ -164,22 +164,23 @@
  
  install:
  	chmod a+r lib/*@SHAREDLIBEXT@*
@@ -18,20 +18,19 @@ diff -aurN pwlib.orig/Makefile.in pwlib/Makefile.in
 -	chmod -R a+r $(PREFIX)/include/ptlib $(PREFIX)/include/ptclib $(PREFIX)/include/ptlib.h $(PREFIX)/share/pwlib $(PREFIX)/include/ptbuildopts.h $(PREFIX)/include/ptlib.h
 -	chmod a+rx $(PREFIX)/include/ptlib $(PREFIX)/include/ptlib/unix $(PREFIX)/include/ptlib/unix/ptlib $(PREFIX)/include/ptclib $(PREFIX)/bin/ptlib-config $(PREFIX)/share/pwlib/make/
 -
++	install -d -m755 $(DESTDIR)$(PREFIX)/{lib,include/{ptclib,ptlib/unix/ptlib},bin,share/pwlib/make,share/man/man1}
 +	cp -df lib/*@SHAREDLIBEXT@* $(DESTDIR)$(PREFIX)/lib/
-+	cp lib/libpt.a $(DESTDIR)$(PREFIX)/lib/
-+	cp -rf include/ptclib/ $(DESTDIR)$(PREFIX)/include/
-+	cp -rf include/ptlib/ $(DESTDIR)$(PREFIX)/include/
-+	cp -rf include/ptbuildopts.h $(DESTDIR)$(PREFIX)/include/
-+	cp -rf include/ptlib.h $(DESTDIR)$(PREFIX)/include/
-+	cp tools/asnparser/obj*/asnparser $(DESTDIR)$(PREFIX)/bin/
-+	cp make/ptlib-config $(DESTDIR)$(PREFIX)/bin/
-+	mkdir -p $(DESTDIR)$(PREFIX)/share/pwlib/
-+	cp -rf make $(DESTDIR)$(PREFIX)/share/pwlib/
-+	chmod -R a+r $(DESTDIR)$(PREFIX)/include/ptlib $(DESTDIR)$(PREFIX)/include/ptclib $(DESTDIR)$(PREFIX)/include/ptlib.h $(DESTDIR)$(PREFIX)/share/pwlib $(DESTDIR)$(PREFIX)/include/ptbuildopts.h $(DESTDIR)$(PREFIX)/include/ptlib.h
-+	chmod a+rx $(DESTDIR)$(PREFIX)/include/ptlib $(DESTDIR)$(PREFIX)/include/ptlib/unix $(DESTDIR)$(PREFIX)/include/ptlib/unix/ptlib $(DESTDIR)$(PREFIX)/include/ptclib $(DESTDIR)$(PREFIX)/bin/ptlib-config $(DESTDIR)$(PREFIX)/share/pwlib/make/
-+	chmod a+r lib/*@SHAREDLIBEXT@*
-+	cp tools/asnparser/asnparser.1 $(DESTDIR)$(PREFIX)/share/man/man1
++	install -m644 lib/libpt.a $(DESTDIR)$(PREFIX)/lib
++	install -m644 include/ptclib/*.h $(DESTDIR)$(PREFIX)/include/ptclib
++	install -m644 include/ptlib/*.{h,inl} $(DESTDIR)$(PREFIX)/include/ptlib
++	install -m644 include/ptlib/unix/ptlib/*.{h,inl} $(DESTDIR)$(PREFIX)/include/ptlib/unix/ptlib
++	install -m644 include/ptbuildopts.h $(DESTDIR)$(PREFIX)/include
++	install -m644 include/ptlib.h $(DESTDIR)$(PREFIX)/include
++	install -m755 tools/asnparser/obj*/asnparser $(DESTDIR)$(PREFIX)/bin
++	install -m755 make/ptlib-config $(DESTDIR)$(PREFIX)/bin
++	install -m644 make/*.mak $(DESTDIR)$(PREFIX)/share/pwlib/make
++	chmod a+rx lib/*@SHAREDLIBEXT@*
++	install -m644 tools/asnparser/asnparser.1 $(DESTDIR)$(PREFIX)/share/man/man1
 +	
  uninstall:
 -	rm -rf $(PREFIX)/include/ptlib $(PREFIX)/include/ptclib $(PREFIX)/include/ptlib.h $(PREFIX)/include/ptbuildopts.h $(PREFIX)/share/pwlib/ 
