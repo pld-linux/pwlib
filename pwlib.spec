@@ -2,16 +2,14 @@ Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.3.2
+Version:	1.4.4
 Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
-Patch2:		%{name}-asnparser.patch
-Patch3:		%{name}-116.patch
-Patch4:		%{name}-EOF.patch
+Patch2:		%{name}-EOF.patch
 URL:		http://www.openh323.org/
 BuildRequires:	bison
 BuildRequires:	flex
@@ -78,8 +76,6 @@ Biblioteki statyczne pwlib.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 PWLIBDIR=`pwd`; export PWLIBDIR
@@ -87,10 +83,6 @@ PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}" 
-
-%{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
@@ -103,6 +95,7 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}/{ptclib,ptlib/unix/ptlib},%
 
 #using cp as install won't preserve links
 cp -d lib/lib* $RPM_BUILD_ROOT%{_libdir}
+install version.h $RPM_BUILD_ROOT%{_includedir}/ptlib
 install include/*.h $RPM_BUILD_ROOT%{_includedir}
 install include/ptclib/*.h $RPM_BUILD_ROOT%{_includedir}/ptclib
 install include/ptlib/*.h $RPM_BUILD_ROOT%{_includedir}/ptlib
