@@ -1,6 +1,7 @@
 #
 # Conditional build:
 # _with_dc		- with libdc1394 digital camera interface
+#			  (instead of libavc1394)
 # 
 Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i uniksami
@@ -18,12 +19,13 @@ Patch2:		%{name}-EOF.patch
 Patch3:		%{name}-opt.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
+BuildRequires:	autoconf
 BuildRequires:	bison
 BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	libavc1394-devel
+%{!?_with_dc:BuildRequires:	libavc1394-devel}
 %{?_with_dc:BuildRequires:	libdc1394-devel}
-BuildRequires:	libdv-devel
+%{!?_with_dc:BuildRequires:	libdv-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel >= 0.9.7
@@ -55,8 +57,14 @@ Summary(pl):	Pliki dla programistów u¿ywaj±cych pwlib
 Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
-Requires:	openssl-devel >= 0.9.7
+Requires:	SDL-devel
 Requires:	expat-devel
+%{!?_with_dc:Requires:	libavc1394-devel}
+%{?_with_dc:Requires:	libdc1394-devel}
+%{!?_with_dc:Requires:	libdv-devel}
+Requires:	libstdc++-devel
+Requires:	openldap-devel
+Requires:	openssl-devel >= 0.9.7
 
 %description devel
 Header files and libraries for developing applications that use pwlib.
@@ -132,6 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/ptlib/*.inl
 %{_includedir}/ptlib/unix/ptlib/*.h
 %{_includedir}/ptlib/unix/ptlib/*.inl
+%dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/make
 %{_datadir}/%{name}/make/*.mak
 %{_datadir}/%{name}/make/gcc_filter
