@@ -9,7 +9,7 @@ Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.6.4
 %define	fver	%(echo %{version} | tr . _)-1
-Release:	0.1
+Release:	1
 License:	MPL 1.0
 Group:		Libraries
 #Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
