@@ -2,8 +2,8 @@ Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.3.8
-Release:	2
+Version:	1.3.10
+Release:	1
 License:	GPL
 Group:		Libraries
 Source0:	http://www.openh323.org/bin/%{name}_%{version}.tar.gz
@@ -85,10 +85,6 @@ PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	CC=%{__cc} CPLUS=%{__cxx} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}" 
-
-%{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-	CC=%{__cc} CPLUS=%{__cxx} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS}"
 
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
