@@ -71,22 +71,20 @@ Biblioteki statyczne pwlib.
 %patch5 -p1
 
 %build
-# it still ignores CC and CXX
-CC="%{__cc}"; export CC
-%{?__cxx:CXX="%{__cc}"; export CXX}
-
-
 PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
+	CC=%{__cc} CPLUS=%{__cxx} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
 	EXTLIBS="-lstdc++ -lexpat" 
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
+	CC=%{__cc} CPLUS=%{__cxx} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
 	
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
+	CC=%{__cc} CPLUS=%{__cxx} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" 
 
 %install
