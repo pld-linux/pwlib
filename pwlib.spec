@@ -1,7 +1,7 @@
 Summary:	Portable Windows Libary
 Summary(pl):	Przeno¶na biblioteka okienkowa
 Name:		pwlib
-Version:	1.2.12
+Version:	1.2.13
 Release:	1
 License:	GPL
 Group:		Libraries
@@ -72,18 +72,22 @@ Biblioteki statyczne pwlib.
 CC="%{__cc}"; export CC
 %{?__cxx:CXX="%{__cc}"; export CXX}
 
+
 PWLIBDIR=`pwd`; export PWLIBDIR
 PWLIB_BUILD="yes"; export PWLIB_BUILD
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
-	EXTLIBS="-lstdc++ -lexpat"
+	EXTLIBS="-lstdc++ -lexpat" \
+	CC="gcc2" CPP="g++2" CPLUS="g++2"
 
 %{__make} %{?debug:debugnoshared}%{!?debug:optnoshared} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
-
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
+	CC="gcc2" CPP="g++2" CPLUS="g++2"
+	
 %{__make} -C tools/asnparser \
 	%{?debug:debugshared}%{!?debug:optshared} \
-	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions"
+	OPTCCFLAGS="%{!?debug:$RPM_OPT_FLAGS} -fno-rtti -fno-exceptions" \
+	CC="gcc2" CPP="g++2" CPLUS="g++2"
 
 %install
 rm -rf $RPM_BUILD_ROOT
