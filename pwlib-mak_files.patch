@@ -1,15 +1,15 @@
 diff -durN pwlib.orig/make/common.mak pwlib/make/common.mak
---- pwlib.orig/make/common.mak	Thu Nov  2 05:46:42 2000
-+++ pwlib/make/common.mak	Wed Jan 10 15:14:46 2001
-@@ -227,6 +227,7 @@
- $(TARGET):	$(OBJS) $(TARGET_LIBS)
+--- pwlib.orig/make/common.mak	Mon Jul 30 09:45:54 2001
++++ pwlib/make/common.mak	Thu Aug  9 10:33:44 2001
+@@ -260,6 +260,7 @@
+ endif
  	$(CPLUS) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
  
 +ifdef PWLIB_BUILD
  ifdef DEBUG
  
  $(PW_LIBDIR)/$(PTLIB_FILE):
-@@ -243,6 +244,7 @@
+@@ -276,6 +277,7 @@
  $(PW_LIBDIR)/$(PWLIB_FILE):
  	$(MAKE) -C $(PWLIBDIR)/src/pwlib/$(PWLIB_GUI) opt
  
@@ -18,9 +18,9 @@ diff -durN pwlib.orig/make/common.mak pwlib/make/common.mak
  
  CLEAN_FILES += $(TARGET)
 diff -durN pwlib.orig/make/lib.mak pwlib/make/lib.mak
---- pwlib.orig/make/lib.mak	Fri May 19 03:26:31 2000
-+++ pwlib/make/lib.mak	Wed Jan 10 15:16:12 2001
-@@ -69,9 +69,9 @@
+--- pwlib.orig/make/lib.mak	Sat Jul  7 08:51:52 2001
++++ pwlib/make/lib.mak	Thu Aug  9 10:33:44 2001
+@@ -93,9 +93,9 @@
  
  install: $(LIBDIR)/$(LIBNAME_PAT)
  	$(INSTALL) $(LIBDIR)/$(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIBNAME_PAT)
@@ -35,7 +35,7 @@ diff -durN pwlib.orig/make/lib.mak pwlib/make/lib.mak
  
 diff -durN pwlib.orig/make/ptlib.mak pwlib/make/ptlib.mak
 --- pwlib.orig/make/ptlib.mak	Wed Dec  2 03:37:31 1998
-+++ pwlib/make/ptlib.mak	Wed Jan 10 15:14:46 2001
++++ pwlib/make/ptlib.mak	Thu Aug  9 10:33:44 2001
 @@ -35,10 +35,15 @@
  #
  
@@ -55,7 +55,7 @@ diff -durN pwlib.orig/make/ptlib.mak pwlib/make/ptlib.mak
  # End of ptlib.mak
 diff -durN pwlib.orig/make/pwlib.mak pwlib/make/pwlib.mak
 --- pwlib.orig/make/pwlib.mak	Wed Dec  2 03:39:53 1998
-+++ pwlib/make/pwlib.mak	Wed Jan 10 15:14:46 2001
++++ pwlib/make/pwlib.mak	Thu Aug  9 10:33:44 2001
 @@ -44,11 +44,17 @@
  #
  
@@ -76,9 +76,9 @@ diff -durN pwlib.orig/make/pwlib.mak pwlib/make/pwlib.mak
  
  # End of pwlib.mak
 diff -durN pwlib.orig/make/unix.mak pwlib/make/unix.mak
---- pwlib.orig/make/unix.mak	Wed Jan 10 15:10:38 2001
-+++ pwlib/make/unix.mak	Wed Jan 10 15:14:46 2001
-@@ -230,7 +230,7 @@
+--- pwlib.orig/make/unix.mak	Mon Aug  6 21:27:24 2001
++++ pwlib/make/unix.mak	Thu Aug  9 10:34:49 2001
+@@ -293,7 +293,7 @@
  
  
  ifndef PWLIBDIR
@@ -87,15 +87,22 @@ diff -durN pwlib.orig/make/unix.mak pwlib/make/unix.mak
  endif
  
  ###############################################################################
-@@ -396,10 +396,6 @@
+@@ -476,18 +476,6 @@
+ 
  # i486 Linux for x86, using gcc 2.7.2
  STDCCFLAGS	+= -DP_LINUX
- 
+-
 -
 -ifeq ($(MACHTYPE),x86)
--STDCCFLAGS	+= -m486
+-ifdef CPUTYPE
+-ifeq ($(CPUTYPE),crusoe)
+-STDCCFLAGS	+= -fomit-frame-pointer -fno-strict-aliasing -fno-common -pipe -mpreferred-stack-boundary=2 -march=i686 -malign-functions=0 
+-STDCCFLAGS      += -malign-jumps=0 -malign-loops=0
+-else
+-STDCCFLAGS	+= -mcpu=$(CPUTYPE)
+-endif
+-endif
 -endif
  
  ifeq ($(MACHTYPE),alpha)
  STDCCFLAGS	+= -DP_64BIT
-
