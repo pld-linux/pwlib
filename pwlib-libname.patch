@@ -1,0 +1,19 @@
+diff -durN pwlib.orig/make/unix.mak pwlib/make/unix.mak
+--- pwlib.orig/make/unix.mak	Wed Jan 10 14:44:45 2001
++++ pwlib/make/unix.mak	Wed Jan 10 14:43:26 2001
+@@ -781,13 +781,13 @@
+ PW_LIBDIR	= $(PWLIBDIR)/lib
+ 
+ # set name of the PT library
+-PTLIB_BASE	= pt_$(PLATFORM_TYPE)_$(OBJ_SUFFIX)
++PTLIB_BASE	= pt
+ PTLIB_FILE	= lib$(PTLIB_BASE)$(LIB_TYPE).$(LIB_SUFFIX)
+ PT_OBJBASE	= obj_$(PLATFORM_TYPE)_$(OBJ_SUFFIX)
+ PT_OBJDIR	= $(PW_LIBDIR)/$(PT_OBJBASE)
+ 
+ # set name of the PW library (may not be used)
+-PWLIB_BASE	= pw_$(GUI_TYPE)_$(PLATFORM_TYPE)_$(OBJ_SUFFIX)
++PWLIB_BASE	= pw_$(GUI_TYPE)
+ PWLIB_FILE	= lib$(PWLIB_BASE)$(LIB_TYPE).$(LIB_SUFFIX)
+ PW_OBJBASE	= obj_$(GUI_TYPE)_$(PLATFORM_TYPE)_$(OBJ_SUFFIX)
+ PW_OBJDIR	= $(PW_LIBDIR)/$(PW_OBJBASE)

@@ -1,0 +1,116 @@
+diff -durN pwlib.orig/make/common.mak pwlib/make/common.mak
+--- pwlib.orig/make/common.mak	Thu Nov  2 05:46:42 2000
++++ pwlib/make/common.mak	Wed Jan 10 15:14:46 2001
+@@ -227,6 +227,7 @@
+ $(TARGET):	$(OBJS) $(TARGET_LIBS)
+ 	$(CPLUS) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
+ 
++ifdef PWLIB_BUILD
+ ifdef DEBUG
+ 
+ $(PW_LIBDIR)/$(PTLIB_FILE):
+@@ -243,6 +244,7 @@
+ $(PW_LIBDIR)/$(PWLIB_FILE):
+ 	$(MAKE) -C $(PWLIBDIR)/src/pwlib/$(PWLIB_GUI) opt
+ 
++endif
+ endif
+ 
+ CLEAN_FILES += $(TARGET)
+diff -durN pwlib.orig/make/lib.mak pwlib/make/lib.mak
+--- pwlib.orig/make/lib.mak	Fri May 19 03:26:31 2000
++++ pwlib/make/lib.mak	Wed Jan 10 15:16:12 2001
+@@ -55,11 +55,11 @@
+ 
+ $(LIBDIR)/$(LIB_BASENAME): $(LIBDIR)/$(LIBNAME_PAT)
+ 	@rm -f $(LIBDIR)/$(LIB_BASENAME)
+-	ln -s $(LIBDIR)/$(LIBNAME_PAT) $(LIBDIR)/$(LIB_BASENAME)
++	ln -s $(LIBNAME_PAT) $(LIBDIR)/$(LIB_BASENAME)
+ 	@rm -f $(LIBDIR)/$(LIBNAME_MAJ)
+-	ln -s $(LIBDIR)/$(LIBNAME_PAT) $(LIBDIR)/$(LIBNAME_MAJ)
++	ln -s $(LIBNAME_PAT) $(LIBDIR)/$(LIBNAME_MAJ)
+ 	@rm -f $(LIBDIR)/$(LIBNAME_MIN)
+-	ln -s $(LIBDIR)/$(LIBNAME_PAT) $(LIBDIR)/$(LIBNAME_MIN)
++	ln -s $(LIBNAME_PAT) $(LIBDIR)/$(LIBNAME_MIN)
+ 
+ $(LIBDIR)/$(LIBNAME_PAT): $(OBJS)
+ 	@if [ ! -d $(LIBDIR) ] ; then mkdir $(LIBDIR) ; fi
+@@ -69,9 +69,9 @@
+ 
+ install: $(LIBDIR)/$(LIBNAME_PAT)
+ 	$(INSTALL) $(LIBDIR)/$(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIBNAME_PAT)
+-	ln -s $(INSTALLLIB_DIR)/$(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIB_BASENAME)
+-	ln -s $(INSTALLLIB_DIR)/$(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIBNAME_MAJ)
+-	ln -s $(INSTALLLIB_DIR)/$(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIBNAME_MIN)
++	ln -s $(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIB_BASENAME)
++	ln -s $(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIBNAME_MAJ)
++	ln -s $(LIBNAME_PAT) $(INSTALLLIB_DIR)/$(LIBNAME_MIN)
+ 
+ else
+ 
+diff -durN pwlib.orig/make/ptlib.mak pwlib/make/ptlib.mak
+--- pwlib.orig/make/ptlib.mak	Wed Dec  2 03:37:31 1998
++++ pwlib/make/ptlib.mak	Wed Jan 10 15:14:46 2001
+@@ -35,10 +35,15 @@
+ #
+ 
+ ifndef PWLIBDIR
+-PWLIBDIR=$(HOME)/pwlib
++PWLIBDIR=@prefix@
+ endif
+ 
++ifdef PWLIB_BUILD
+ include $(PWLIBDIR)/make/unix.mak
+ include $(PWLIBDIR)/make/common.mak
++else
++include @makdir@/unix.mak
++include @makdir@/common.mak
++endif
+ 
+ # End of ptlib.mak
+diff -durN pwlib.orig/make/pwlib.mak pwlib/make/pwlib.mak
+--- pwlib.orig/make/pwlib.mak	Wed Dec  2 03:39:53 1998
++++ pwlib/make/pwlib.mak	Wed Jan 10 15:14:46 2001
+@@ -44,11 +44,17 @@
+ #
+ 
+ ifndef PWLIBDIR
+-PWLIBDIR=$(HOME)/pwlib
++PWLIBDIR=@prefix@
+ endif
+ 
++ifdef PWLIB_BUILD
+ include $(PWLIBDIR)/make/unix.mak
+ include $(PWLIBDIR)/make/gui.mak
+ include $(PWLIBDIR)/make/common.mak
++else
++include @makdir@/unix.mak
++include @makdir@/gui.mak
++include @makdir@/common.mak
++endif
+ 
+ # End of pwlib.mak
+diff -durN pwlib.orig/make/unix.mak pwlib/make/unix.mak
+--- pwlib.orig/make/unix.mak	Wed Jan 10 15:10:38 2001
++++ pwlib/make/unix.mak	Wed Jan 10 15:14:46 2001
+@@ -230,7 +230,7 @@
+ 
+ 
+ ifndef PWLIBDIR
+-PWLIBDIR = $(HOME)/pwlib
++PWLIBDIR = @prefix@
+ endif
+ 
+ ###############################################################################
+@@ -396,10 +396,6 @@
+ # i486 Linux for x86, using gcc 2.7.2
+ STDCCFLAGS	+= -DP_LINUX
+ 
+-
+-ifeq ($(MACHTYPE),x86)
+-STDCCFLAGS	+= -m486
+-endif
+ 
+ ifeq ($(MACHTYPE),alpha)
+ STDCCFLAGS	+= -DP_64BIT
+
