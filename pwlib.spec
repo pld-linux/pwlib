@@ -17,7 +17,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
 PWLib is a moderately large class library that has its genesis many years ago asa method to product applications to run on both Microsoft Windows and Unix
-X-Windows systems. It also was to have a Macintosh port as well but this never
+X Window systems. It also was to have a Macintosh port as well but this never
 eventuated.
 Unfortunately this package contains no GUI code.
 
