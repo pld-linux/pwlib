@@ -2,14 +2,14 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.8.4
+Version:	1.9.0
 %define	fver	%(echo %{version} | tr . _)
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
-#Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
-Source0:	http://www.seconix.com/%{name}-%{version}.tar.gz
-# Source0-md5:	fc638a64216b7751271c539ee4ccd0a8
+Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
+# Source0-md5:	9163893f588f77fd8be355d10bc995b8
+#Source0:	http://www.seconix.com/%{name}-%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -151,7 +151,7 @@ v4l video input plugin.
 Wtyczka wej¶cia obrazu v4l.
 
 %prep
-%setup -q
+%setup -q -n %{name}_v%{fver}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -175,7 +175,7 @@ cp -f /usr/share/automake/config.* .
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -184,6 +184,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir}}
 	PW_LIBDIR="`pwd`/lib"
 
 cp -d lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
+cp version.h $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -204,6 +205,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_libdir}/libpt*.so
+%{_includedir}/%{name}/version.h
 %{_includedir}/ptclib
 %{_includedir}/ptlib
 %{_includedir}/*.h
