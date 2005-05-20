@@ -2,14 +2,14 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.8.4
+Version:	1.9.0
 %define	fver	%(echo %{version} | tr . _)
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
-#Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
+Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
+# Source0-md5:	9163893f588f77fd8be355d10bc995b8
 #Source0:	http://www.seconix.com/%{name}-%{version}.tar.gz
-Source:		http://www.gnomemeeting.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -151,7 +151,7 @@ v4l video input plugin.
 Wtyczka wej¶cia obrazu v4l.
 
 %prep
-%setup -q 
+%setup -q -n %{name}_v%{fver}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
