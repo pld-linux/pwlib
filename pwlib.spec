@@ -157,7 +157,7 @@ Wtyczka wej¶cia obrazu v4l.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%ifarch sparc64 %{x8664}
+%if "%{_lib}" == "lib64"
 %patch4 -p1
 %endif
 
