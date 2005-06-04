@@ -4,7 +4,7 @@ Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.9.0
 %define	fver	%(echo %{version} | tr . _)
-Release:	1
+Release:	2
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
@@ -14,6 +14,7 @@ Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
 Patch3:		%{name}-opt.patch
+Patch4:		%{name}-lib64.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel >= 1.0.1
@@ -156,6 +157,9 @@ Wtyczka wej¶cia obrazu v4l.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%ifarch sparc64 %{x8664}
+%patch4 -p1
+%endif
 
 ln -sf make bin
 
