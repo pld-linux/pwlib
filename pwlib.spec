@@ -4,7 +4,7 @@ Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.9.0
 %define	fver	%(echo %{version} | tr . _)
-Release:	4
+Release:	5
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
@@ -28,7 +28,7 @@ BuildRequires:	libavc1394-devel
 BuildRequires:	libdc1394-devel
 BuildRequires:	libdv-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	openldap-devel
+BuildRequires:	openldap-devel >= 2.3.0
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -62,7 +62,7 @@ Requires:	SDL-devel
 Requires:	cyrus-sasl-devel >= 2.0
 Requires:	expat-devel
 Requires:	libstdc++-devel
-Requires:	openldap-devel
+Requires:	openldap-devel >= 2.3.0
 Requires:	openssl-devel >= 0.9.7c
 
 %description devel
