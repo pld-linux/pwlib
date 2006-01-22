@@ -10,7 +10,6 @@ Group:		Libraries
 #Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
 Source0:	http://www.ekiga.org/downloads/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	64f7ee4062f507e871863680df5278b9
-#Source0:	http://www.seconix.com/%{name}-%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -154,7 +153,7 @@ Wtyczka wej¶cia obrazu v4l.
 
 %prep
 %setup -q 
-#%patch0 -p1
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
