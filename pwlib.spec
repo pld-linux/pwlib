@@ -2,14 +2,14 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.9.2
+Version:	1.9.3
 %define	fver	%(echo %{version} | tr . _)
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
 #Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
-Source0:	http://www.ekiga.org/downloads/sources/%{name}-%{version}.tar.gz
-# Source0-md5:	64f7ee4062f507e871863680df5278b9
+Source0:	http://www.ekiga.org/downloads/beta2/sources/%{name}-%{version}.tar.gz
+# Source0-md5:	42d5e9d274bdb02b40f5e1db06307475
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -151,6 +151,18 @@ v4l video input plugin.
 %description video-v4l -l pl
 Wtyczka wej¶cia obrazu v4l.
 
+%package video-v4l2
+Summary:	v4l2 video input plugin
+Summary(pl):	Wtyczka wej¶cia obrazu v4l2
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description video-v4l2
+v4l2 video input plugin.
+
+%description video-v4l -l pl2
+Wtyczka wej¶cia obrazu v4l2.
+
 %prep
 %setup -q 
 %patch0 -p1
@@ -167,7 +179,8 @@ ln -sf make bin
 cp -f /usr/share/automake/config.* .
 %{__autoconf}
 %configure \
-	--enable-plugins
+	--enable-plugins \
+	--enable-v4l2
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	PWLIBDIR="`pwd`" \
@@ -240,3 +253,7 @@ rm -rf $RPM_BUILD_ROOT
 %files video-v4l
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/v4l_pwplugin.so
+
+%files video-v4l2
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/v4l2_pwplugin.so
