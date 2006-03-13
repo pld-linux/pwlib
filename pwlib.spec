@@ -2,14 +2,12 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.9.3
-%define	fver	%(echo %{version} | tr . _)
+Version:	1.10.0
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
-#Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
-Source0:	http://www.ekiga.org/downloads/beta2/sources/%{name}-%{version}.tar.gz
-# Source0-md5:	42d5e9d274bdb02b40f5e1db06307475
+Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
+# Source0-md5:	97da19588bdc25cd8b48afb135eded1d
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
