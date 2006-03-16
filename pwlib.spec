@@ -14,8 +14,7 @@ Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
 Patch3:		%{name}-opt.patch
 Patch4:		%{name}-lib64.patch
-#URL:		http://www.openh323.org/
-URL:		http://openh323.sourceforge.net/
+URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel >= 1.0.1
 BuildRequires:	autoconf >= 2.50
