@@ -7,7 +7,7 @@ Release:	2
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/sourceforge/openh323/%{name}-Phobos_rc1-src-tar.gz
-# Source0-md5:	
+# Source0-md5:	a8ba894bd27a4e1ac8af11bb4cb0d825
 #Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
