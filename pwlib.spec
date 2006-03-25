@@ -3,12 +3,11 @@ Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.10.0
-Release:	2
+Release:	1
 License:	MPL 1.0
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/sourceforge/openh323/%{name}-Phobos_rc1-src-tar.gz
-# Source0-md5:	a8ba894bd27a4e1ac8af11bb4cb0d825
-#Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
+Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
+# Source0-md5:	97da19588bdc25cd8b48afb135eded1d
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -163,7 +162,7 @@ v4l2 video input plugin.
 Wtyczka wej¶cia obrazu v4l2.
 
 %prep
-%setup -q -n %{name}_Phobos_rc1
+%setup -q 
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
