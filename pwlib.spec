@@ -2,20 +2,17 @@ Summary:	Portable Windows Libary
 Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.9.0
-%define	fver	%(echo %{version} | tr . _)
-Release:	6
+Version:	1.10.0
+Release:	1
 License:	MPL 1.0
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/openh323/%{name}-v%{fver}-src-tar.gz
-# Source0-md5:	9163893f588f77fd8be355d10bc995b8
-#Source0:	http://www.seconix.com/%{name}-%{version}.tar.gz
+Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
+# Source0-md5:	97da19588bdc25cd8b48afb135eded1d
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
 Patch3:		%{name}-opt.patch
 Patch4:		%{name}-lib64.patch
-Patch5:		%{name}-openldap-2.3.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel >= 1.0.1
@@ -152,8 +149,20 @@ v4l video input plugin.
 %description video-v4l -l pl
 Wtyczka wej¶cia obrazu v4l.
 
+%package video-v4l2
+Summary:	v4l2 video input plugin
+Summary(pl):	Wtyczka wej¶cia obrazu v4l2
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description video-v4l2
+v4l2 video input plugin.
+
+%description video-v4l -l pl2
+Wtyczka wej¶cia obrazu v4l2.
+
 %prep
-%setup -q -n %{name}_v%{fver}
+%setup -q 
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -161,7 +170,6 @@ Wtyczka wej¶cia obrazu v4l.
 %if "%{_lib}" == "lib64"
 %patch4 -p1
 %endif
-%patch5 -p1
 
 ln -sf make bin
 
@@ -169,7 +177,8 @@ ln -sf make bin
 cp -f /usr/share/automake/config.* .
 %{__autoconf}
 %configure \
-	--enable-plugins
+	--enable-plugins \
+	--enable-v4l2
 
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
 	PWLIBDIR="`pwd`" \
@@ -242,3 +251,7 @@ rm -rf $RPM_BUILD_ROOT
 %files video-v4l
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/v4l_pwplugin.so
+
+%files video-v4l2
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/v4l2_pwplugin.so
