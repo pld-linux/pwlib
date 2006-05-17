@@ -52,34 +52,33 @@ diff -Naur pwlib_v1_9_0.orig/make/ptbuildopts.mak.in pwlib_v1_9_0/make/ptbuildop
  
  MACHTYPE   = @MACHTYPE@
  OSTYPE	   = @OSTYPE@
-diff -Naur pwlib_v1_9_0.orig/make/ptlib-config.in pwlib_v1_9_0/make/ptlib-config.in
---- pwlib_v1_9_0.orig/make/ptlib-config.in	2005-05-18 18:40:21.000000000 +0200
-+++ pwlib_v1_9_0/make/ptlib-config.in	2005-05-18 18:50:04.000000000 +0200
+--- pwlib-1.9.2/make/ptlib-config.in.orig	2005-09-18 13:05:36.000000000 +0200
++++ pwlib-1.9.2/make/ptlib-config.in	2006-01-22 20:24:46.523660000 +0100
 @@ -6,10 +6,10 @@
  
  VERSION="@PWLIB_VERSION@"
  CCFLAGS="@STDCCFLAGS@"
 -LDFLAGS="@LDFLAGS@"
 +LDFLAGS=
- LIBS="@ENDLDLIBS@"
+ LIBS="@ENDLDLIBS@ -lpt"
  LIBDIR="@LIBDIR@"
 -PWINSTDIR="@INSTALLPREFIX@/share/pwlib"
 +PWINSTDIR="@INSTALLPREFIX@"
  MACHTYPE="@MACHTYPE@"
  OSTYPE="@OSTYPE@"
  OSRELEASE="@OSRELEASE@"
-diff -Naur pwlib_v1_9_0.orig/make/ptlib.mak pwlib_v1_9_0/make/ptlib.mak
---- pwlib_v1_9_0.orig/make/ptlib.mak	2005-05-18 18:40:21.000000000 +0200
-+++ pwlib_v1_9_0/make/ptlib.mak	2005-05-18 18:44:26.000000000 +0200
-@@ -38,14 +38,13 @@
+--- pwlib-1.9.2/make/ptlib.mak.orig	2005-08-14 15:12:42.000000000 +0200
++++ pwlib-1.9.2/make/ptlib.mak	2006-01-22 20:25:38.954936750 +0100
+@@ -41,15 +41,13 @@
  #
  
  ifndef PWLIBDIR
--	echo "No PWLIBDIR environment variable defined!"
--	echo "You need to define PWLIBDIR!"
--	echo "Try something like:"
--	echo "PWLIBDIR = $(HOME)/pwlib"
--	exit 1
+-
+-$(error No PWLIBDIR environment variable defined! \
+-You need to define PWLIBDIR! \
+-Try something like: \
+-PWLIBDIR = $(HOME)/pwlib)
+-
 +PWLIBDIR=/usr
 +endif
 +ifndef PWLIBMAKEDIR
