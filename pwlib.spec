@@ -158,7 +158,7 @@ Requires:	%{name} = %{version}-%{release}
 %description video-v4l2
 v4l2 video input plugin.
 
-%description video-v4l -l pl2
+%description video-v4l2 -l pl
 Wtyczka wej¶cia obrazu v4l2.
 
 %prep
