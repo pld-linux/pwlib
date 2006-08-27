@@ -180,10 +180,11 @@ cp -f /usr/share/automake/config.* .
 	--enable-plugins \
 	--enable-v4l2
 
+dir=$(pwd)
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
-	PWLIBDIR="`pwd`" \
-	PWLIBMAKEDIR="`pwd`/make" \
-	PW_LIBDIR="`pwd`/lib" \
+	PWLIBDIR="$dir" \
+	PWLIBMAKEDIR="$dir/make" \
+	PW_LIBDIR="$dir/lib" \
 	OPTCCFLAGS="%{rpmcflags} %{!?debug:-DNDEBUG}" \
 	CXX="%{__cxx}"
 
@@ -192,11 +193,12 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}/%{name}}
 
+dir=$(pwd)
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	PWLIBDIR="`pwd`" \
-	PWLIBMAKEDIR="`pwd`/make" \
-	PW_LIBDIR="`pwd`/lib"
+	PWLIBDIR="$dir" \
+	PWLIBMAKEDIR="$dir/make" \
+	PW_LIBDIR="$dir/lib" \
 
 cp -d lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
 cp version.h $RPM_BUILD_ROOT%{_includedir}/%{name}
