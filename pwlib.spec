@@ -3,7 +3,7 @@ Summary(pl):	Biblioteka zapewniaj±ca przeno¶no¶æ miêdzy Windows i Uniksami
 Summary(pt_BR):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.10.2
-Release:	1
+Release:	2
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
 Patch3:		%{name}-opt.patch
 Patch4:		%{name}-lib64.patch
+Patch5:		%{name}-API.patch
 URL:		http://www.openh323.org/
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel >= 1.0.1
@@ -170,6 +171,7 @@ Wtyczka wej¶cia obrazu v4l2.
 %if "%{_lib}" == "lib64"
 %patch4 -p1
 %endif
+%patch5 -p1
 
 ln -sf make bin
 
