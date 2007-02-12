@@ -9,8 +9,8 @@
 
 
 Summary:	Portable Windows Libary
-Summary(pl):	Biblioteka zapewniaj±ca przeno∂no∂Ê miÍdzy Windows i uniksami
-Summary(pt_BR):	Biblioteca Windows Portavel
+Summary(pl.UTF-8):   Biblioteka zapewniajƒÖca przeno≈õno≈õƒá miƒôdzy Windows i uniksami
+Summary(pt_BR.UTF-8):   Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.6.4
 Release:	0.%{_snap}.2
@@ -43,13 +43,13 @@ Windows and Unix X Window systems. It also was to have a Macintosh
 port as well but this never eventuated. Unfortunately this package
 contains no GUI code.
 
-%description -l pl
-PWLib to dosyÊ duøa biblioteka klas, ktÛra wywodzi siÍ ze sposobu na
-tworzenie aplikacji dzia≥aj±cych zarÛwno pod Microsoft Windows jak i
-uniksowych X Window. Mia≥a teø mieÊ port na Macintosha. Ten pakiet nie
+%description -l pl.UTF-8
+PWLib to dosyƒá du≈ºa biblioteka klas, kt√≥ra wywodzi siƒô ze sposobu na
+tworzenie aplikacji dzia≈ÇajƒÖcych zar√≥wno pod Microsoft Windows jak i
+uniksowych X Window. Mia≈Ça te≈º mieƒá port na Macintosha. Ten pakiet nie
 zawiera kodu GUI.
 
-%description -l pt_BR
+%description -l pt_BR.UTF-8
 PWLib e uma biblioteca de classes razoavelmente grande que teve seu
 inicio ha alguns anos atras como um metodo para produzir aplicacoes
 para serem executadas tanto em Windows quanto em sitemas Unix baseados
@@ -58,8 +58,8 @@ terminado. Esta versao nao contem nenhum codigo para interface.
 
 %package devel
 Summary:	Portable Windows Libary development files
-Summary(pl):	Pliki dla programistÛw uøywaj±cych pwlib
-Summary(pt_BR):	Pacote de desenvolvimento para a pwlib
+Summary(pl.UTF-8):   Pliki dla programist√≥w u≈ºywajƒÖcych pwlib
+Summary(pt_BR.UTF-8):   Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 Requires:	SDL-devel
@@ -74,24 +74,24 @@ Requires:	openssl-devel >= 0.9.7c
 %description devel
 Header files and libraries for developing applications that use pwlib.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe i biblioteki konieczne do rozwoju aplikacji
-uøywaj±cych pwlib.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe i biblioteki konieczne do rozwoju aplikacji
+u≈ºywajƒÖcych pwlib.
 
-%description devel -l pt_BR
+%description devel -l pt_BR.UTF-8
 O pacote pwlib-devel inclui as bibliotecas e arquivos de header para a
 biblioteca pwlib.
 
 %package static
 Summary:	Portable Windows Libary static libraries
-Summary(pl):	Biblioteki statyczne pwlib
+Summary(pl.UTF-8):   Biblioteki statyczne pwlib
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
 pwlib static libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteki statyczne pwlib.
 
 %prep
