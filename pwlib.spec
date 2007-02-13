@@ -1,6 +1,6 @@
 Summary:	Portable Windows Libary
-Summary(pl.UTF-8):   Biblioteka zapewniająca przenośność między Windows i Uniksami
-Summary(pt_BR.UTF-8):   Biblioteca Windows Portavel
+Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uniksami
+Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.10.3
 Release:	1
@@ -53,8 +53,8 @@ terminado. Esta versao nao contem nenhum codigo para interface.
 
 %package devel
 Summary:	Portable Windows Libary development files
-Summary(pl.UTF-8):   Pliki dla programistów używających pwlib
-Summary(pt_BR.UTF-8):   Pacote de desenvolvimento para a pwlib
+Summary(pl.UTF-8):	Pliki dla programistów używających pwlib
+Summary(pt_BR.UTF-8):	Pacote de desenvolvimento para a pwlib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	SDL-devel
@@ -77,7 +77,7 @@ biblioteca pwlib.
 
 %package static
 Summary:	Portable Windows Libary static libraries
-Summary(pl.UTF-8):   Biblioteki statyczne pwlib
+Summary(pl.UTF-8):	Biblioteki statyczne pwlib
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -89,7 +89,7 @@ Biblioteki statyczne pwlib.
 
 %package sound-alsa
 Summary:	Alsa audio plugin
-Summary(pl.UTF-8):   Wtyczka dźwiękowa Alsa
+Summary(pl.UTF-8):	Wtyczka dźwiękowa Alsa
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	alsa-lib >= 1.0.1
@@ -103,7 +103,7 @@ Wtyczka dźwiękowa Alsa.
 
 %package sound-oss
 Summary:	OSS audio plugin
-Summary(pl.UTF-8):   Wtyczka dźwiękowa OSS
+Summary(pl.UTF-8):	Wtyczka dźwiękowa OSS
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Provides:	pwlib-sound
@@ -116,7 +116,7 @@ Wtyczka dźwiękowa OSS.
 
 %package video-avc
 Summary:	AVC 1394 video input plugin
-Summary(pl.UTF-8):   Wtyczka wejścia obrazu AVC 1394
+Summary(pl.UTF-8):	Wtyczka wejścia obrazu AVC 1394
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -128,7 +128,7 @@ Wtyczka wejścia obrazu AVC 1394.
 
 %package video-dc
 Summary:	DC 1394 video input plugin
-Summary(pl.UTF-8):   Wtyczka wejścia obrazu DC 1394
+Summary(pl.UTF-8):	Wtyczka wejścia obrazu DC 1394
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -140,7 +140,7 @@ Wtyczka wejścia obrazu DC 1394.
 
 %package video-v4l
 Summary:	v4l video input plugin
-Summary(pl.UTF-8):   Wtyczka wejścia obrazu v4l
+Summary(pl.UTF-8):	Wtyczka wejścia obrazu v4l
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -152,7 +152,7 @@ Wtyczka wejścia obrazu v4l.
 
 %package video-v4l2
 Summary:	v4l2 video input plugin
-Summary(pl.UTF-8):   Wtyczka wejścia obrazu v4l2
+Summary(pl.UTF-8):	Wtyczka wejścia obrazu v4l2
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 
