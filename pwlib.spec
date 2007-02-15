@@ -2,12 +2,12 @@ Summary:	Portable Windows Libary
 Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uniksami
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.10.3
+Version:	1.10.4
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
-# Source0-md5:	7ccf7a395924b5f4452c580d21f4c2f6
+# Source0-md5:	a9b71fec93079ff15374b26db71defab
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
