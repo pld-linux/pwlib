@@ -2,12 +2,12 @@ Summary:	Portable Windows Libary
 Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uniksami
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.10.4
+Version:	1.10.5
 Release:	1
 License:	MPL 1.0
 Group:		Libraries
 Source0:	http://www.ekiga.org/admin/downloads/latest/sources/sources/%{name}-%{version}.tar.gz
-# Source0-md5:	a9b71fec93079ff15374b26db71defab
+# Source0-md5:	1d5f444aedc56f7936bb87ccf21549e7
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -26,6 +26,7 @@ BuildRequires:	flex
 BuildRequires:	libavc1394-devel
 BuildRequires:	libdc1394-devel
 BuildRequires:	libdv-devel
+BuildRequires:	libraw1394-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	openldap-devel >= 2.3.0
 BuildRequires:	openssl-devel >= 0.9.7d
