@@ -2,12 +2,13 @@ Summary:	Portable Windows Libary
 Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uniksami
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.11.1
+Version:	1.10.3
 Release:	1
+Epoch:		0
 License:	MPL 1.0
 Group:		Libraries
-Source0:	http://www.voxgratia.org/releases/pwlib-v1_11_1-src.tar.gz
-# Source0-md5:	8b7a7a2ed8da6792006922476dd3b2f3
+Source0:	http://www.voxgratia.org/releases/pwlib-v1_10_3-src-tar.gz
+# Source0-md5:	082eb57b4f52e4d487208de18d83ccf8
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -164,7 +165,7 @@ v4l2 video input plugin.
 Wtyczka wejścia obrazu v4l2.
 
 %prep
-%setup -q -n pwlib_v1_11_1
+%setup -q -n pwlib_v1_10_3
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
