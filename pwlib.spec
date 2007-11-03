@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uni
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.10.10
-Release:	1
+Release:	2
 Epoch:		0
 License:	MPL 1.0
 Group:		Libraries
