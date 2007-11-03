@@ -30,7 +30,7 @@ BuildRequires:	libdc1394-devel
 BuildRequires:	libdv-devel
 BuildRequires:	libraw1394-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	openldap-devel >= 2.3.0
+BuildRequires:	openldap-devel >= 2.4.6
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -64,7 +64,7 @@ Requires:	SDL-devel
 Requires:	cyrus-sasl-devel >= 2.0
 Requires:	expat-devel
 Requires:	libstdc++-devel
-Requires:	openldap-devel >= 2.3.0
+Requires:	openldap-devel >= 2.4.6
 Requires:	openssl-devel >= 0.9.7c
 
 %description devel
