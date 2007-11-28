@@ -16,6 +16,7 @@ Patch2:		%{name}-bison-pure.patch
 Patch3:		%{name}-opt.patch
 Patch4:		%{name}-lib64.patch
 Patch5:		%{name}-API.patch
+Patch6:		%{name}-sparc64.patch
 URL:		http://www.voxgratia.org/
 BuildRequires:	SDL-devel
 BuildRequires:	alsa-lib-devel >= 1.0.1
@@ -175,6 +176,9 @@ Wtyczka wejścia obrazu v4l2.
 %patch4 -p1
 %endif
 %patch5 -p1
+%ifarch sparc64
+%patch6 -p1
+%endif
 
 ln -sf make bin
 
