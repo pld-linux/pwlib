@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	dc1394		# build DC 1394 video input plugin
+#
 Summary:	Portable Windows Libary
 Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uniksami
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
@@ -27,7 +31,7 @@ BuildRequires:	cyrus-sasl-devel >= 2.0
 BuildRequires:	expat-devel
 BuildRequires:	flex
 BuildRequires:	libavc1394-devel
-BuildRequires:	libdc1394-devel
+%{?with_dc1394:BuildRequires:	libdc1394-devel < 2.0.0}
 BuildRequires:	libdv-devel
 BuildRequires:	libraw1394-devel
 BuildRequires:	libstdc++-devel
@@ -255,9 +259,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/avc_pwplugin.so
 
+%if %{with dc1394}
 %files video-dc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/dc_pwplugin.so
+%endif
 
 %files video-v4l
 %defattr(644,root,root,755)
