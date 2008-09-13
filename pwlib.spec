@@ -1,13 +1,14 @@
 #
 # Conditional build:
 %bcond_with	dc1394		# build DC 1394 video input plugin
+%bcond_with	avc1394		# build AVC 1394 video input plugin
 #
 Summary:	Portable Windows Libary
 Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uniksami
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.10.10
-Release:	5
+Release:	6
 Epoch:		0
 License:	MPL 1.0
 Group:		Libraries
@@ -30,7 +31,7 @@ BuildRequires:	bison >= 1.875
 BuildRequires:	cyrus-sasl-devel >= 2.0
 BuildRequires:	expat-devel
 BuildRequires:	flex
-BuildRequires:	libavc1394-devel
+%{?with_avc1394:BuildRequires:	libavc1394-devel}
 %{?with_dc1394:BuildRequires:	libdc1394-devel < 2.0.0}
 BuildRequires:	libdv-devel
 BuildRequires:	libraw1394-devel
@@ -191,7 +192,9 @@ cp -f /usr/share/automake/config.* .
 %{__autoconf}
 %configure \
 	--enable-plugins \
-	--enable-v4l2
+	--enable-v4l2 \
+	%{!?with_avc1394:--disable-avc} \
+	%{!?with_dc1394:--disable-dc}
 
 dir=$(pwd)
 %{__make} %{?debug:debugshared}%{!?debug:optshared} \
@@ -255,9 +258,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/devices/sound/oss_pwplugin.so
 
+%if %{with avc1394}
 %files video-avc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/devices/videoinput/avc_pwplugin.so
+%endif
 
 %if %{with dc1394}
 %files video-dc
