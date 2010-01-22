@@ -1,0 +1,11 @@
+diff -urN pwlib-1.10.2/include/ptlib/critsec.h pwlib-1.10.2.new/include/ptlib/critsec.h
+--- pwlib-1.10.2/include/ptlib/critsec.h	2006-01-27 04:43:24.000000000 +0100
++++ pwlib-1.10.2.new/include/ptlib/critsec.h	2006-12-23 13:56:20.593039811 +0100
+@@ -230,7 +230,6 @@
+       inline int operator--()            { PWaitAndSignal m(critSec); value--; return value;}
+       inline operator int () const       { return value; }
+       inline void SetValue(int v)        { value = v; }
+-   private:
+       PAtomicInteger & operator=(const PAtomicInteger & ref) { value = (int)ref; return *this; }
+     protected:
+       int value;
