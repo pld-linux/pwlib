@@ -2,19 +2,19 @@
 # Conditional build:
 %bcond_with	dc1394		# build DC 1394 video input plugin
 %bcond_with	avc1394		# build AVC 1394 video input plugin
-#
+
+%define		ver	%(echo %{version} | tr . _)
 Summary:	Portable Windows Libary
 Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uniksami
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
-Version:	1.10.10
-Release:	7
+Version:	1.11.1
+Release:	2
 Epoch:		0
 License:	MPL 1.0
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/gnome/sources/pwlib/1.10/%{name}-%{version}.tar.bz2
-# Source0-md5:	2c3bf7e8236a96659728ad139ce30b33
-#Source0:	http://www.voxgratia.org/releases/pwlib-v1_10_3-src-tar.gz
+Source0:	http://www.voxgratia.org/releases/%{name}-v%{ver}-src.tar.gz
+# Source0-md5:	8b7a7a2ed8da6792006922476dd3b2f3
 Patch0:		%{name}-mak_files.patch
 Patch1:		%{name}-libname.patch
 Patch2:		%{name}-bison-pure.patch
@@ -125,6 +125,19 @@ OSS audio plugin.
 %description sound-oss -l pl.UTF-8
 Wtyczka dźwiękowa OSS.
 
+%package sound-esd
+Summary:	ESD audio plugin
+Summary(pl.UTF-8):	Wtyczka dźwiękowa ESD
+Group:		Libraries
+Requires:	%{name} = %{version}-%{release}
+Provides:	pwlib-sound
+
+%description sound-esd
+ESD audio plugin.
+
+%description sound-esd -l pl.UTF-8
+Wtyczka dźwiękowa ESD.
+
 %package video-avc
 Summary:	AVC 1394 video input plugin
 Summary(pl.UTF-8):	Wtyczka wejścia obrazu AVC 1394
@@ -174,7 +187,7 @@ v4l2 video input plugin.
 Wtyczka wejścia obrazu v4l2.
 
 %prep
-%setup -q
+%setup -q -n pwlib_v%{ver}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -218,8 +231,8 @@ dir=$(pwd)
 	PWLIBMAKEDIR="$dir/make" \
 	PW_LIBDIR="$dir/lib" \
 
-cp -d lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
-cp version.h $RPM_BUILD_ROOT%{_includedir}/%{name}
+cp -pd lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
+cp -a version.h $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -259,6 +272,10 @@ rm -rf $RPM_BUILD_ROOT
 %files sound-oss
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/pwlib/devices/sound/oss_pwplugin.so
+
+%files sound-esd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/pwlib/devices/sound/esd_pwplugin.so
 
 %if %{with avc1394}
 %files video-avc
