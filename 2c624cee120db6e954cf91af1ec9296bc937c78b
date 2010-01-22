@@ -1,0 +1,5 @@
+- Release: 3
+- library names changed (we don't need sytem type and such in library name)
+- *.mak files changed so apps compilations won't try to build pwlib
+- %{debug} macro used together with pwlib's building system
+- only dynamically-linked version of asnparser is built
