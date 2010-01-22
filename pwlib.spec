@@ -29,6 +29,7 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	bison >= 1.875
 BuildRequires:	cyrus-sasl-devel >= 2.0
+BuildRequires:	esound-devel
 BuildRequires:	expat-devel
 BuildRequires:	flex
 %{?with_avc1394:BuildRequires:	libavc1394-devel}
