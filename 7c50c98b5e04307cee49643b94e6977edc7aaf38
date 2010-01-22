@@ -1,0 +1,4 @@
+- added a patch from gnomemeeting.org... Not one failed hunk, though
+  I would wait till somebody really needs it - we are going stable aren't we :)
+- NOTE: after rebuilding pwlib one needs to rebuild openh323 with the new
+  pwlib for the changes to take effect
