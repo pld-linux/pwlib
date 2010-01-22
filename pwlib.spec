@@ -8,7 +8,7 @@ Summary(pl.UTF-8):	Biblioteka zapewniająca przenośność między Windows i Uni
 Summary(pt_BR.UTF-8):	Biblioteca Windows Portavel
 Name:		pwlib
 Version:	1.10.10
-Release:	6
+Release:	7
 Epoch:		0
 License:	MPL 1.0
 Group:		Libraries
@@ -72,6 +72,7 @@ Requires:	expat-devel
 Requires:	libstdc++-devel
 Requires:	openldap-devel >= 2.4.6
 Requires:	openssl-devel >= 0.9.7c
+Conflicts:	ptlib-devel
 
 %description devel
 Header files and libraries for developing applications that use pwlib.
@@ -89,6 +90,7 @@ Summary:	Portable Windows Libary static libraries
 Summary(pl.UTF-8):	Biblioteki statyczne pwlib
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Conflicts:	ptlib-static
 
 %description static
 pwlib static libraries.
