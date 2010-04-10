@@ -9,3 +9,14 @@ diff -urN pwlib-1.10.2/include/ptlib/critsec.h pwlib-1.10.2.new/include/ptlib/cr
        PAtomicInteger & operator=(const PAtomicInteger & ref) { value = (int)ref; return *this; }
      protected:
        int value;
+--- pwlib_v1_11_1/src/ptclib/pssl.cxx~	2006-07-23 06:16:14.000000000 +0200
++++ pwlib_v1_11_1/src/ptclib/pssl.cxx	2010-04-10 21:52:54.087982411 +0200
+@@ -906,7 +906,7 @@
+   InitialisationMutex.Signal();
+ 
+   // create the new SSL context
+-  SSL_METHOD * meth = SSLv23_method();
++  SSL_METHOD const * meth = SSLv23_method();
+   context  = SSL_CTX_new(meth);
+   if (context == NULL)
+     PSSLAssert("Error creating context: ");
