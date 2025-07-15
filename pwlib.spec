@@ -189,16 +189,16 @@ Wtyczka wejścia obrazu v4l2.
 
 %prep
 %setup -q -n pwlib_v%{ver}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 %if "%{_lib}" == "lib64"
-%patch4 -p1
+%patch -P4 -p1
 %endif
-%patch5 -p1
+%patch -P5 -p1
 %ifarch sparc64
-%patch6 -p1
+%patch -P6 -p1
 %endif
 
 ln -sf make bin
